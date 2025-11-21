@@ -3,7 +3,7 @@
 library(tidyverse)
 library(forcats)
 
-forage<-read_csv('dairyone_master.csv')%>%
+forage<-read_csv('dairyone_master.csv',skip=5)%>%
   mutate(field=as.factor(field))
    
 ##AVAILABLE PROTEIN###
@@ -159,3 +159,43 @@ ggplot(filter(forviz2, year!=2020), aes(year, val))+
 #if volume stayed the same/if volume increased to 2022 levels/volume by platemeter??
     
     
+
+
+###FORB forage
+
+forbs<-forage%>%
+  filter(type=="forb"|type=="grass"|type=="113k")
+
+
+ggplot(forbs, aes(field2, total_digestible_nutrient))+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+ggplot(forbs, aes(field2, acid_detergent_fiber))+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+ggplot(forbs, aes(field2, crude_protein))+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+ggplot(forbs, aes(field2, calcium))+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+ggplot(forbs, aes(field2, phosphorus))+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+ggplot(forbs, aes(field2, magnesium))+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+ggplot(forbs, aes(field2, potassium))+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+ggplot(forbs, aes(field2, zinc_ppm))+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+ggplot(forbs, aes(field2, iron_ppm))+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+ggplot(forbs, aes(field2, copper_ppm))+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+ggplot(forbs, aes(field2, mn_ppm))+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+ggplot(forbs, aes(field2, mo_ppm))+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+ggplot(forbs, aes(field2, sulfur_percent))+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+
+### native warm season grasses
+NWSG<-forage%>%
+  filter(category=="NWSG"|type=="113k")%>%
+  mutate(field2=as.factor(field2))
+NWSG$field2<-fct_relevel(NWSG$field2, "DAIRYONE AVERAGE 2004-2022", "Bluestem", "Indiangrass", "Switchgrass", "Gamagrass", "Bluestem+Indiangrass", "Mixed NWSG", "Mixed NWSG w/ clover")
+
+ggplot(NWSG, aes(field2, total_digestible_nutrient)) + geom_rect(aes(xmin=-Inf, xmax=Inf, ymin=52, ymax=58), fill="lightgrey")+
+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  theme(legend.title = element_blank())+
+  labs(caption = "Dairy One average represents typical northeast cool season hay value. Shading represents range of 'medium' quality values.")+
+  xlab("")+ ylab("% Total Digestible Nutrient")
+  #geom_point(data=(filter(NWSG, type!="113k")), aes(y=total_digestible_nutrient*1.2, color=year, alpha=.8))
+  #geom_hline(yintercept=58)+geom_hline(yintercept=52, color="darkred")
+
+ggplot(NWSG, aes(field2, crude_protein))+ geom_rect(aes(xmin=-Inf, xmax=Inf, ymin=7, ymax=11), fill="lightgrey")+geom_point(aes(color=year))+theme_classic()+ theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+  #geom_point(data=(filter(NWSG, type!="113k")), aes(y=total_digestible_nutrient*1.2, color=year, alpha=.8))
+  #geom_hline(yintercept=8, color="darkred")
