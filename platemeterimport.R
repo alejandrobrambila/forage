@@ -151,3 +151,80 @@ glimpse(allplatemeter)
 ?geom_bar
 
 
+library(dplyr)
+
+
+allplatemeter <- allplatemeter %>%
+  mutate(
+    paddock_name = case_when(
+      date == "2025-04-25" & paddock_name == "Paddock 1" ~ "GP1A",
+      date == "2025-04-25" & paddock_name == "Paddock 2" ~ "GP1A",
+      date == "2025-04-25" & paddock_name == "Paddock 3" ~ "GP2A",
+      date == "2025-04-25" & paddock_name == "Paddock 4" ~ "GP2B",
+      date == "2025-04-25" & paddock_name == "Paddock 5" ~ "GP2B",
+      date == "2025-04-25" & paddock_name == "Paddock 6" ~ "GP3",
+      date == "2025-04-25" & paddock_name == "Paddock 7" ~ "GP3",
+      date == "2025-04-25" & paddock_name == "Paddock 8" ~ "GP3",
+      date == "2025-04-25" & paddock_name == "Paddock 9" ~ "GP4A",
+      date == "2025-04-25" & paddock_name == "Paddock 10" ~ "GP4B",
+      date == "2025-04-25" & paddock_name == "Paddock 11" ~ "GP5D",
+      date == "2025-04-25" & paddock_name == "Paddock 12" ~ "GP5B",
+      date == "2025-04-25" & paddock_name == "Paddock 13" ~ "GP5A",
+      date == "2025-04-25" & paddock_name == "Paddock 14" ~ "GP6A",
+      date == "2025-04-25" & paddock_name == "Paddock 15" ~ "GP6A",
+      date == "2025-04-25" & paddock_name == "Paddock 16" ~ "GP6C",
+      date == "2025-04-25" & paddock_name == "Paddock 17" ~ "GP7",
+      date == "2025-04-25" & paddock_name == "Paddock 18" ~ "GP7",
+      date == "2025-04-25" & paddock_name == "Paddock 19" ~ "GP7",
+      date == "2025-04-25" & paddock_name == "Paddock 20" ~ "GP8A",
+      date == "2025-04-25" & paddock_name == "Paddock 21" ~ "GP8B",
+      date == "2025-04-25" & paddock_name == "Paddock 22" ~ "GP8B",
+      
+      date == "2025-04-21" & paddock_name == "Paddock 53" ~ "drainage",
+      date == "2025-04-21" & paddock_name == "Paddock 55" ~ "lower_underhill",
+      date == "2025-04-21" & paddock_name == "Paddock 56" ~ "barberry_south",
+      date == "2025-04-21" & paddock_name == "Paddock 57" ~ "barberry_north",
+      date == "2025-04-21" & paddock_name == "Paddock 58" ~ "wilson",
+      date == "2025-04-21" & paddock_name == "Paddock 59" ~ "underhill",
+      date == "2025-04-21" & paddock_name == "Paddock 60" ~ "underhill_wet",
+      date == "2025-04-21" & paddock_name == "Paddock 61" ~ "bull",
+      date == "2025-04-21" & paddock_name == "Paddock 38" ~ "crabby",
+      date == "2025-04-21" & paddock_name == "Paddock 39" ~ "flush",
+      date == "2025-04-21" & paddock_name == "Paddock 40" ~ "upper_home",
+      date == "2025-04-21" & paddock_name == "Paddock 41" ~ "railroad",
+      date == "2025-04-21" & paddock_name == "Paddock 42" ~ "lower_home",
+      date == "2025-04-21" & paddock_name == "Paddock 43" ~ "triangle_lower",
+      date == "2025-04-21" & paddock_name == "Paddock 45" ~ "horse",
+      date == "2025-04-21" & paddock_name == "Paddock 46" ~ "pond",
+      date == "2025-04-21" & paddock_name == "Paddock 47" ~ "upper_sunset",
+      date == "2025-04-21" & paddock_name == "Paddock 48" ~ "sunset_field",
+      date == "2025-04-21" & paddock_name == "Paddock 49" ~ "lower_sunset",
+      date == "2025-04-21" & paddock_name == "Paddock 50" ~ "williams_west",
+      date == "2025-04-21" & paddock_name == "Paddock 51" ~ "williams_1a",
+      
+      
+      TRUE ~ paddock_name  # keep original if no condition matches
+    )
+  )
+allplatemeter <- allplatemeter %>%
+  mutate(
+    paddock_name = case_when(
+      date %in% c("2025-04-25", "2025-04-26", "2025-04-27") &
+        paddock_name == "Paddock 1" ~ "GP1A",
+      
+      Date %in% c("2025-04-25", "2025-04-26", "2025-04-27") &
+        paddock_name == "Paddock 2" ~ "GP1A",
+      
+      Date %in% c("2025-04-25", "2025-04-26", "2025-04-27") &
+        paddock_name == "Paddock 3" ~ "GP2A",
+      
+      TRUE ~ paddock_name
+    )
+  )
+
+
+str(allplatemeter$date)
+class(allplatemeter$date)
+
+
+
