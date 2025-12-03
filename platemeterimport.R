@@ -123,6 +123,7 @@ sep17<-read.csv("./platemeter/2025-sep-17-00-00-00(in).csv")|>
 #-------------------------------------removing random extra columns from platemeter------------
 
 jun02$X <- NULL
+jun02$X.1 <- NULL
 print(jun02)
 
 jun10$X <- NULL
@@ -137,9 +138,18 @@ may14$X.3 <- NULL
 may19$X.3 <- NULL
 may30$X.2 <- NULL
 
+#---------------removing data points in certain files that don't make sense-----
+jun02 <- jun02[-c(1, 12, 13), ]   
+may30 <- may30[-c(20), ]
+may14 <- may14[-c(21), ]
+aug15 <- aug15[-c(48), ]
+
 #----------r bind combines all of the separate csvs into one------------------
 
-allplatemeter<-rbind(apr21,apr24,apr25,apr30,aug15,aug25,aug26,aug28,jul11,jul14,jul15, jul31,jun02,jun05,jun10,jun11,jun23,jun27,may09,may12,may13,may14,may19,may21,may30,oct01,oct06,sep12,sep17)
+allplatemeter<-rbind(apr21,apr24,apr25,apr30,aug15,aug25,aug26,aug28,jul11,jul14,jul15, jul31,jun02,jun05,jun10,jun11,jun27,may09,may12,may13,may14,may19,may21,may30,oct01,oct06,sep12,sep17)
+
+#removing uneccessary columns
+allplatemeter2 <- allplatemeter %>% select(-paddock_area, -equation_multiplier_a, -equation_constant_b, -residual_constant, -residual_cover, -total)
 
 ---------------------------------------------------------------------------------
 #because of discrepancies in field naming, I assigned the appropriate
@@ -153,7 +163,7 @@ allplatemeter<-rbind(apr21,apr24,apr25,apr30,aug15,aug25,aug26,aug28,jul11,jul14
 #since the platemetering done on these days references the old zones
 #and names the rest of the paddocks using the new platemetering zones
  
-allplatemeter <- allplatemeter %>%
+allplatemeter2 <- allplatemeter2 %>%
 mutate(
 field = case_when(
       
@@ -181,6 +191,7 @@ field = case_when(
       date == as.Date("2025-04-24") & paddock_name == "Paddock 49" ~ "lower_sunset",
       date == as.Date("2025-04-24") & paddock_name == "Paddock 50" ~ "williams_west",
       date == as.Date("2025-04-24") & paddock_name == "Paddock 51" ~ "williams_1a",
+      date == as.Date("2025-04-24") & paddock_name == "Paddock 53" ~ "drainage",
       
       # ---------- SPECIAL DATE: 2024-04-25 ----------
       date == as.Date("2025-04-25") & paddock_name == "Paddock 1"  ~ "GP1A",
@@ -241,9 +252,112 @@ field = case_when(
       date == as.Date("2025-05-14") & paddock_name == "Paddock 20" ~ "GP6C",
       date == as.Date("2025-05-14") & paddock_name == "Paddock 21" ~ "GP7",
       
+      # ---------- SPECIAL DATE: 2025-05-30 ----------
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 1" ~ "GP1B",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 2" ~ "GP2A",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 3" ~ "GP2A",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 4" ~ "GP2B",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 5" ~ "GP3",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 6" ~ "GP3",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 7" ~ "GP3",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 8" ~ "GP3",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 9" ~ "GP1A",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 10" ~ "GP4A",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 11" ~ "GP4A",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 12" ~ "GP4B",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 13" ~ "GP4C",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 14" ~ "GP5D",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 15" ~ "GP5A",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 16" ~ "GP6A",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 17" ~ "GP6A",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 19" ~ "GP6C",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 20" ~ "GP6C",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 21" ~ "GP7",
       
+      # ---------- SPECIAL DATE: 2025-05-19 ----------
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 1" ~ "GP1B",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 2" ~ "GP2A",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 3" ~ "GP2A",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 4" ~ "GP2B",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 5" ~ "GP3",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 6" ~ "GP3",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 7" ~ "GP3",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 8" ~ "GP3",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 9" ~ "GP1A",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 10" ~ "GP4A",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 11" ~ "GP4A",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 12" ~ "GP4B",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 13" ~ "GP4C",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 14" ~ "GP5D",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 15" ~ "GP5A",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 16" ~ "GP6A",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 17" ~ "GP6A",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 19" ~ "GP6C",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 20" ~ "GP6C",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 21" ~ "GP7",
       
+      # ---------- SPECIAL DATE: 2025-06-05 ----------
+      date == as.Date("2025-06-05") & paddock_name == "GP1A" ~ "GP1B",
+      date == as.Date("2025-06-05") & paddock_name == "GP1B" ~ "GP2A",
+      date == as.Date("2025-06-05") & paddock_name == "GP2A" ~ "GP2A",
+      date == as.Date("2025-06-05") & paddock_name == "GP2B" ~ "GP2B",
+      date == as.Date("2025-06-05") & paddock_name == "GP3S" ~ "GP3",
+      date == as.Date("2025-06-05") & paddock_name == "GP3N" ~ "GP3",
+      date == as.Date("2025-06-05") & paddock_name == "GP4A" ~ "GP3",
+      date == as.Date("2025-06-05") & paddock_name == "GP4B" ~ "GP3",
+      date == as.Date("2025-06-05") & paddock_name == "GP4C" ~ "GP1A",
+      date == as.Date("2025-06-05") & paddock_name == "GP5D" ~ "GP4A",
+      date == as.Date("2025-06-05") & paddock_name == "GP5C" ~ "GP4A",
+      date == as.Date("2025-06-05") & paddock_name == "GP5B" ~ "GP4B",
+      date == as.Date("2025-06-05") & paddock_name == "GP5A" ~ "GP4C",
+      date == as.Date("2025-06-05") & paddock_name == "GP6A" ~ "GP5D",
+      date == as.Date("2025-06-05") & paddock_name == "GP6B" ~ "GP5A",
+      date == as.Date("2025-06-05") & paddock_name == "GP6C" ~ "GP6A",
+      date == as.Date("2025-06-05") & paddock_name == "GP7S" ~ "GP6A",
+      date == as.Date("2025-06-05") & paddock_name == "GP8A" ~ "GP6C",
+      date == as.Date("2025-06-05") & paddock_name == "GP8B" ~ "GP6C",
+      date == as.Date("2025-06-05") & paddock_name == "GP Woods" ~ "GP7",
       
+      # ---------- SPECIAL DATE: 2025-07-31 ----------
+      date == as.Date("2025-07-31") & paddock_name == "Paddock 44" ~ "williams_1A",
+      date == as.Date("2025-07-31") & paddock_name == "Paddock 45" ~ "pond",
+      date == as.Date("2025-07-31") & paddock_name == "Paddock 46" ~ "horse",
+      date == as.Date("2025-07-31") & paddock_name == "Paddock 47" ~ "triangle_lower",
+      date == as.Date("2025-07-31") & paddock_name == "Paddock 48" ~ "triangle_upper",
+      date == as.Date("2025-07-31") & paddock_name == "Paddock 49" ~ "railroad",
+
+      # ---------- SPECIAL DATE: 2025-05-09 ----------
+      date == as.Date("2025-05-09") & paddock_name == "Drainage" ~ "drainage",
+      date == as.Date("2025-05-09") & paddock_name == "Lower Barberry" ~ "lower_barberry",
+      date == as.Date("2025-05-09") & paddock_name == "Wilson's" ~ "wilson",
+      date == as.Date("2025-05-09") & paddock_name == "Underhill" ~ "underhill",
+      date == as.Date("2025-05-09") & paddock_name == "Underhill Wet" ~ "underhill_wet",
+      date == as.Date("2025-05-09") & paddock_name == "Lower Underhill" ~ "lower_underhill",
+      date == as.Date("2025-05-09") & paddock_name == "Sunset Hill" ~ "sunset_hill",
+      date == as.Date("2025-05-09") & paddock_name == "Sunset Field" ~ "sunset_field",
+      date == as.Date("2025-05-09") & paddock_name == "Lower Sunset" ~ "lower_sunset",
+      date == as.Date("2025-05-09") & paddock_name == "Pond" ~ "pond",
+      date == as.Date("2025-05-09") & paddock_name == "Horse" ~ "horse",
+      date == as.Date("2025-05-09") & paddock_name == "Triangle Lower" ~ "triangle_lower",
+      date == as.Date("2025-05-09") & paddock_name == "Triangle Upper" ~ "triangle_upper",
+      date == as.Date("2025-05-09") & paddock_name == "Railroad" ~ "railroad",
+      
+      # ---------- SPECIAL DATE: 2025-06-10 ----------
+      date == as.Date("2025-06-10") & paddock_name == "Wilson's" ~ "wilson",
+      date == as.Date("2025-06-10") & paddock_name == "Underhill" ~ "underhill",
+      date == as.Date("2025-06-10") & paddock_name == "Underhill Wet" ~ "underhill_wet",
+      date == as.Date("2025-06-10") & paddock_name == "Lower Underhill" ~ "lower_underhill",
+      date == as.Date("2025-06-10") & paddock_name == "Sunset Hill" ~ "sunset_hill",
+      date == as.Date("2025-06-10") & paddock_name == "Sunset Field" ~ "sunset_field",
+      date == as.Date("2025-06-10") & paddock_name == "Lower Sunset" ~ "lower_sunset",
+      date == as.Date("2025-06-10") & paddock_name == "Pond" ~ "pond",
+      date == as.Date("2025-06-10") & paddock_name == "Horse" ~ "horse",
+      date == as.Date("2025-06-10") & paddock_name == "Triangle Lower" ~ "triangle_lower",
+      date == as.Date("2025-06-10") & paddock_name == "Triangle Upper" ~ "triangle_upper",
+      date == as.Date("2025-06-10") & paddock_name == "Railroad" ~ "railroad",
+    
+      
+       #------default naming-----------------------------
       paddock_name == "Paddock 1"  ~ "GP1A",
       paddock_name == "Paddock 2"  ~ "GP1B",
       paddock_name == "Paddock 3"  ~ "GP2A",
