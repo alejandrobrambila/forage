@@ -412,7 +412,37 @@ field = case_when(
     )
   )
 
+allplatemeter2 <- allplatemeter2 %>% 
+  rename(cover = Cover)
 
+
+#------------------------------reading in maia data----------------------------
+maia_cover <- read.csv("maia cover.csv")
+
+maia_cover$X <- NULL
+maia_cover$X.1 <- NULL
+maia_cover$X.2 <- NULL
+maia_cover$X.3 <- NULL
+
+#converting date to right data type
+head(maia_cover$date)
+str(maia_cover$date)
+maia_cover$date <- as.Date(maia_cover$date, format = "%m/%d/%Y")
+
+#getting rid of commas, setting data in cover to numeric
+maia_cover$cover <- gsub(",", "", maia_cover$cover)
+maia_cover$cover <- as.numeric(maia_cover$cover)
+
+#combines allplatemeter2 and maia_cover
+combined <- bind_rows(allplatemeter2, maia_cover)
+
+#assigning the agroecology platemeter rows a "move_type"
+combined$move_type[is.na(combined$move_type)] <- "agroecology"
+
+combined <- combined %>% select(-paddock_name)
+
+ggplot(combined, aes(x=date, y=cover, color=move_type))+
+  geom_point()
 
 
 
