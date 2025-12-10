@@ -10,7 +10,7 @@ ggplot(recoveryupdated, aes(month_season, recovery_days))+
 recoveryupdated$month_season <- factor(recoveryupdated$month_season, levels = c("April", "May", "June", "July", "August", "September", "October", "November"))
 install.packages("lubridate")
 library("lubridate")
-#creates test column that measures days from 4/15(start of season). For columns with a disturbance #1, 0 is returned forrecoverydays
+#creates test column that measures days from 4/15(start of season). For columns with a disturbance #1, 0 is returned for recoverydays
 recovery2<-recoveryupdated|>
   mutate(day_in_date=mdy(day_in_date))|>
   mutate(totaldays=day_in_date-mdy("4/15/2025"))|>
@@ -44,5 +44,7 @@ recovery2 <- recovery2 %>%
 
 ggplot(recovery2, aes(x=field, y=test))+
          geom_point()
+
+
 
   

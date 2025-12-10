@@ -231,21 +231,21 @@ field = case_when(
       date == as.Date("2025-04-30") & paddock_name == "Paddock 33" ~ "lamson_hill",
       
       # ---------- SPECIAL DATE: 2025-05-14 ----------
-      date == as.Date("2025-05-14") & paddock_name == "Paddock 1" ~ "GP1B",
-      date == as.Date("2025-05-14") & paddock_name == "Paddock 2" ~ "GP2A",
-      date == as.Date("2025-05-14") & paddock_name == "Paddock 3" ~ "GP2A",
-      date == as.Date("2025-05-14") & paddock_name == "Paddock 4" ~ "GP2B",
+      date == as.Date("2025-05-14") & paddock_name == "Paddock 1" ~ "GP3",
+      date == as.Date("2025-05-14") & paddock_name == "Paddock 2" ~ "GP3",
+      date == as.Date("2025-05-14") & paddock_name == "Paddock 3" ~ "GP3",
+      date == as.Date("2025-05-14") & paddock_name == "Paddock 4" ~ "GP3",
       date == as.Date("2025-05-14") & paddock_name == "Paddock 5" ~ "GP3",
       date == as.Date("2025-05-14") & paddock_name == "Paddock 6" ~ "GP3",
       date == as.Date("2025-05-14") & paddock_name == "Paddock 7" ~ "GP3",
       date == as.Date("2025-05-14") & paddock_name == "Paddock 8" ~ "GP3",
-      date == as.Date("2025-05-14") & paddock_name == "Paddock 9" ~ "GP1A",
+      date == as.Date("2025-05-14") & paddock_name == "Paddock 9" ~ "GP4A",
       date == as.Date("2025-05-14") & paddock_name == "Paddock 10" ~ "GP4A",
-      date == as.Date("2025-05-14") & paddock_name == "Paddock 11" ~ "GP4A",
-      date == as.Date("2025-05-14") & paddock_name == "Paddock 12" ~ "GP4B",
+      date == as.Date("2025-05-14") & paddock_name == "Paddock 11" ~ "GP4B",
+      date == as.Date("2025-05-14") & paddock_name == "Paddock 12" ~ "GP4C",
       date == as.Date("2025-05-14") & paddock_name == "Paddock 13" ~ "GP4C",
       date == as.Date("2025-05-14") & paddock_name == "Paddock 14" ~ "GP5D",
-      date == as.Date("2025-05-14") & paddock_name == "Paddock 15" ~ "GP5A",
+      date == as.Date("2025-05-14") & paddock_name == "Paddock 15" ~ "GP5B",
       date == as.Date("2025-05-14") & paddock_name == "Paddock 16" ~ "GP6A",
       date == as.Date("2025-05-14") & paddock_name == "Paddock 17" ~ "GP6A",
       date == as.Date("2025-05-14") & paddock_name == "Paddock 19" ~ "GP6C",
@@ -253,21 +253,21 @@ field = case_when(
       date == as.Date("2025-05-14") & paddock_name == "Paddock 21" ~ "GP7",
       
       # ---------- SPECIAL DATE: 2025-05-30 ----------
-      date == as.Date("2025-05-30") & paddock_name == "Paddock 1" ~ "GP1B",
-      date == as.Date("2025-05-30") & paddock_name == "Paddock 2" ~ "GP2A",
-      date == as.Date("2025-05-30") & paddock_name == "Paddock 3" ~ "GP2A",
-      date == as.Date("2025-05-30") & paddock_name == "Paddock 4" ~ "GP2B",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 1" ~ "GP3",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 2" ~ "GP3",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 3" ~ "GP3",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 4" ~ "GP3",
       date == as.Date("2025-05-30") & paddock_name == "Paddock 5" ~ "GP3",
       date == as.Date("2025-05-30") & paddock_name == "Paddock 6" ~ "GP3",
       date == as.Date("2025-05-30") & paddock_name == "Paddock 7" ~ "GP3",
       date == as.Date("2025-05-30") & paddock_name == "Paddock 8" ~ "GP3",
-      date == as.Date("2025-05-30") & paddock_name == "Paddock 9" ~ "GP1A",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 9" ~ "GP4A",
       date == as.Date("2025-05-30") & paddock_name == "Paddock 10" ~ "GP4A",
-      date == as.Date("2025-05-30") & paddock_name == "Paddock 11" ~ "GP4A",
-      date == as.Date("2025-05-30") & paddock_name == "Paddock 12" ~ "GP4B",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 11" ~ "GP4B",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 12" ~ "GP4C",
       date == as.Date("2025-05-30") & paddock_name == "Paddock 13" ~ "GP4C",
       date == as.Date("2025-05-30") & paddock_name == "Paddock 14" ~ "GP5D",
-      date == as.Date("2025-05-30") & paddock_name == "Paddock 15" ~ "GP5A",
+      date == as.Date("2025-05-30") & paddock_name == "Paddock 15" ~ "GP5B",
       date == as.Date("2025-05-30") & paddock_name == "Paddock 16" ~ "GP6A",
       date == as.Date("2025-05-30") & paddock_name == "Paddock 17" ~ "GP6A",
       date == as.Date("2025-05-30") & paddock_name == "Paddock 19" ~ "GP6C",
@@ -275,21 +275,21 @@ field = case_when(
       date == as.Date("2025-05-30") & paddock_name == "Paddock 21" ~ "GP7",
       
       # ---------- SPECIAL DATE: 2025-05-19 ----------
-      date == as.Date("2025-05-19") & paddock_name == "Paddock 1" ~ "GP1B",
-      date == as.Date("2025-05-19") & paddock_name == "Paddock 2" ~ "GP2A",
-      date == as.Date("2025-05-19") & paddock_name == "Paddock 3" ~ "GP2A",
-      date == as.Date("2025-05-19") & paddock_name == "Paddock 4" ~ "GP2B",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 1" ~ "GP3",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 2" ~ "GP3",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 3" ~ "GP3",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 4" ~ "GP3",
       date == as.Date("2025-05-19") & paddock_name == "Paddock 5" ~ "GP3",
       date == as.Date("2025-05-19") & paddock_name == "Paddock 6" ~ "GP3",
       date == as.Date("2025-05-19") & paddock_name == "Paddock 7" ~ "GP3",
       date == as.Date("2025-05-19") & paddock_name == "Paddock 8" ~ "GP3",
-      date == as.Date("2025-05-19") & paddock_name == "Paddock 9" ~ "GP1A",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 9" ~ "GP4A",
       date == as.Date("2025-05-19") & paddock_name == "Paddock 10" ~ "GP4A",
-      date == as.Date("2025-05-19") & paddock_name == "Paddock 11" ~ "GP4A",
-      date == as.Date("2025-05-19") & paddock_name == "Paddock 12" ~ "GP4B",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 11" ~ "GP4B",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 12" ~ "GP4C",
       date == as.Date("2025-05-19") & paddock_name == "Paddock 13" ~ "GP4C",
       date == as.Date("2025-05-19") & paddock_name == "Paddock 14" ~ "GP5D",
-      date == as.Date("2025-05-19") & paddock_name == "Paddock 15" ~ "GP5A",
+      date == as.Date("2025-05-19") & paddock_name == "Paddock 15" ~ "GP5B",
       date == as.Date("2025-05-19") & paddock_name == "Paddock 16" ~ "GP6A",
       date == as.Date("2025-05-19") & paddock_name == "Paddock 17" ~ "GP6A",
       date == as.Date("2025-05-19") & paddock_name == "Paddock 19" ~ "GP6C",
@@ -297,21 +297,21 @@ field = case_when(
       date == as.Date("2025-05-19") & paddock_name == "Paddock 21" ~ "GP7",
       
       # ---------- SPECIAL DATE: 2025-06-05 ----------
-      date == as.Date("2025-06-05") & paddock_name == "GP1A" ~ "GP1B",
-      date == as.Date("2025-06-05") & paddock_name == "GP1B" ~ "GP2A",
-      date == as.Date("2025-06-05") & paddock_name == "GP2A" ~ "GP2A",
-      date == as.Date("2025-06-05") & paddock_name == "GP2B" ~ "GP2B",
+      date == as.Date("2025-06-05") & paddock_name == "GP1A" ~ "GP3",
+      date == as.Date("2025-06-05") & paddock_name == "GP1B" ~ "GP3",
+      date == as.Date("2025-06-05") & paddock_name == "GP2A" ~ "GP3",
+      date == as.Date("2025-06-05") & paddock_name == "GP2B" ~ "GP3",
       date == as.Date("2025-06-05") & paddock_name == "GP3S" ~ "GP3",
       date == as.Date("2025-06-05") & paddock_name == "GP3N" ~ "GP3",
       date == as.Date("2025-06-05") & paddock_name == "GP4A" ~ "GP3",
       date == as.Date("2025-06-05") & paddock_name == "GP4B" ~ "GP3",
-      date == as.Date("2025-06-05") & paddock_name == "GP4C" ~ "GP1A",
+      date == as.Date("2025-06-05") & paddock_name == "GP4C" ~ "GP4A",
       date == as.Date("2025-06-05") & paddock_name == "GP5D" ~ "GP4A",
-      date == as.Date("2025-06-05") & paddock_name == "GP5C" ~ "GP4A",
-      date == as.Date("2025-06-05") & paddock_name == "GP5B" ~ "GP4B",
+      date == as.Date("2025-06-05") & paddock_name == "GP5C" ~ "GP4B",
+      date == as.Date("2025-06-05") & paddock_name == "GP5B" ~ "GP4C",
       date == as.Date("2025-06-05") & paddock_name == "GP5A" ~ "GP4C",
       date == as.Date("2025-06-05") & paddock_name == "GP6A" ~ "GP5D",
-      date == as.Date("2025-06-05") & paddock_name == "GP6B" ~ "GP5A",
+      date == as.Date("2025-06-05") & paddock_name == "GP6B" ~ "GP5B",
       date == as.Date("2025-06-05") & paddock_name == "GP6C" ~ "GP6A",
       date == as.Date("2025-06-05") & paddock_name == "GP7S" ~ "GP6A",
       date == as.Date("2025-06-05") & paddock_name == "GP8A" ~ "GP6C",
@@ -417,7 +417,7 @@ allplatemeter2 <- allplatemeter2 %>%
 
 
 #------------------------------reading in maia data----------------------------
-maia_cover <- read.csv("maia cover.csv")
+maia_cover <- read.csv("maia_cover.csv")
 
 maia_cover$X <- NULL
 maia_cover$X.1 <- NULL
@@ -444,6 +444,7 @@ combined <- combined %>% select(-paddock_name)
 ggplot(combined, aes(x=date, y=cover, color=move_type))+
   geom_point()
 
+ggplot(filter(combined, field=="GP1A"), aes(x=date, y=cover, color=move_type))+
+  geom_point()
 
-
-
+library(tidyverse)
