@@ -151,6 +151,8 @@ allplatemeter<-rbind(apr21,apr24,apr25,apr30,aug15,aug25,aug26,aug28,jul11,jul14
 #removing uneccessary columns
 allplatemeter2 <- allplatemeter %>% select(-paddock_area, -equation_multiplier_a, -equation_constant_b, -residual_constant, -residual_cover, -total)
 
+
+
 ---------------------------------------------------------------------------------
 #because of discrepancies in field naming, I assigned the appropriate
 #paddock name to each row
@@ -417,7 +419,7 @@ allplatemeter2 <- allplatemeter2 %>%
 
 
 #------------------------------reading in maia data----------------------------
-maia_cover <- read.csv("maia_cover.csv")
+maia_cover <- read.csv("maia cover.csv")
 
 maia_cover$X <- NULL
 maia_cover$X.1 <- NULL
@@ -448,3 +450,13 @@ ggplot(filter(combined, field=="GP1A"), aes(x=date, y=cover, color=move_type))+
   geom_point()
 
 library(tidyverse)
+
+
+#----------------exporting out of R-----------------------------------
+install.packages("writexl")
+library(writexl)
+
+write_xlsx(allplatemeter2, "allplatemeter2.xlsx")
+
+
+write_xlsx(allplatemeter2, "allplatemeter2.xlsx")
