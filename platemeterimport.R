@@ -1,3 +1,10 @@
+##### READ ME #######################
+#this script imports and combines the platemetering done by the Appleton 
+#Farms agroecology team during the 2025 growing season with the platemetering done
+#by the livestock team.
+
+#First, the agroecology data. These data were taken about every other week, april 
+#to october 2025.
 
 #--------reading in each platemeter csv and naming them by date---------
 
@@ -120,7 +127,8 @@ sep17<-read.csv("./platemeter/2025-sep-17-00-00-00(in).csv")|>
   filter(Cover>0)|>
   mutate(date=mdy("09/17/25"))
 
-#-------------------------------------removing random extra columns from platemeter------------
+#CLEANING UP THE DATA-------------------------------------------------
+#-------------------removing random extra columns from platemeter------------
 
 jun02$X <- NULL
 jun02$X.1 <- NULL
@@ -157,13 +165,14 @@ allplatemeter2 <- allplatemeter %>% select(-paddock_area, -equation_multiplier_a
 #because of discrepancies in field naming, I assigned the appropriate
 #paddock name to each row
 ---------------------------------------------------------------------------------
-#first I am naming each paddock (1-48) according to the names from the new 
-#plate metering map
-
+#first, the code corrects the paddock names for the files apr21, apr24, apr25, apr30,
+#5/9, 5/14, 5/19, 5/30, 6/5, 6/10, 7/31
+#since the platemetering done on these days references either old zones or are named 
+#according to the bird experiment plots.
 ---------------------------------------------------------------------------------
-#the code below corrects the paddock names for the files apr21, apr24, apr25, apr30
-#since the platemetering done on these days references the old zones
-#and names the rest of the paddocks using the new platemetering zones
+#then I am naming each paddock (1-48) according to the names from the new/current
+#plate metering map as a default for other dates.
+
  
 allplatemeter2 <- allplatemeter2 %>%
 mutate(
@@ -417,10 +426,12 @@ field = case_when(
 allplatemeter2 <- allplatemeter2 %>% 
   rename(cover = Cover)
 
-
+#---------------------------------------------------------------------------------------------
+#SECOND, reading in the livestock recorded platemetering (from Maia grazing software)
 #------------------------------reading in maia data----------------------------
 maia_cover <- read.csv("maia cover.csv")
 
+#cleaning the data
 maia_cover$X <- NULL
 maia_cover$X.1 <- NULL
 maia_cover$X.2 <- NULL
@@ -441,15 +452,16 @@ combined <- bind_rows(allplatemeter2, maia_cover)
 #assigning the agroecology platemeter rows a "move_type"
 combined$move_type[is.na(combined$move_type)] <- "agroecology"
 
+#gets rid of irrelevant paddock_name column
 combined <- combined %>% select(-paddock_name)
 
-ggplot(combined, aes(x=date, y=cover, color=move_type))+
+#--------------------------------------------------------------------------------
+#plotting the data
+ggplot(combined, aes(x=field, y=cover, color=move_type))+
   geom_point()
 
 ggplot(filter(combined, field=="GP1A"), aes(x=date, y=cover, color=move_type))+
   geom_point()
-
-library(tidyverse)
 
 
 #----------------exporting out of R-----------------------------------
