@@ -1,9 +1,9 @@
 ###### READ ME############################################
 #this script looks at recovery days (how long we let fields rest inbetween grazes)
 #for the 2025 grazing season at Appleton Farms. The column "disturbance_number" 
-#refers to the number of disturbance events (graze, mow, hay) that occured in a field.
+#refers to the number of disturbance events (graze, mow, hay) that occurred in a field.
 #"day_in" date refers to either the day the cows were moved into a field if the disturbance
-#was a graze, or the day that a mow or hay event occured.
+#was a graze, or the day that a mow or hay event occurred.
 #the "target" column is based on what month the disturbance occurred. Each month is assigned
 #a target number of days to recover (ex: April has a 15 day target recovery period).
 #the "recovery_days" column is calculated by taking the difference between the day_in date
@@ -35,7 +35,7 @@ recovery$month_season <- factor(recovery$month_season, levels = c("April", "May"
 #For columns with a disturbance #1, 0 is returned for recoverydays
 #the column "test" now displays the recovery day value as the #days since the beginning
 #of the season (4/15 for brood, 5/1 for feeders) instead of 0.
-recovery2<-recoveryupdated|>
+recovery2<-recovery|>
   mutate(day_in_date=mdy(day_in_date))|>
   mutate(totaldays=day_in_date-mdy("4/15/2025"))|>
   mutate(recovery_days=ifelse(is.na(recovery_days), 0, recovery_days))|>
@@ -60,16 +60,84 @@ recovery2 <- recovery2 %>%
     month == "September" ~ 42,
   ))
 #----------------------------plotting----------------------------------------
-ggplot(recovery2, aes(month_season, test))+
-  geom_point(aes(color=disturbance_type))+
-  geom_text(aes(label=field))
-recovery2$month_season <- factor(recovery2$month_season, levels = c("April", "May", "June", "July", "August", "September", "October", "November"))
+#April recovery days compared to target
+recovery2 |>
+  dplyr::filter(month == "April") |>
+  ggplot(aes(x = field, y = test)) +
+  geom_point() +
+  geom_hline(yintercept = 15) +
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 6)
+  ) +
+  labs(
+    x = "Fields",
+    y = "Recovery Days",
+    title = "April Recovery Days By Field (Target = 15 days)"
+  )
 
-ggplot(recovery2, aes(day_in_date, test))+
-  geom_point(aes(color=disturbance_type, group=field))
 
-ggplot(recovery2, aes(month_season))+
-  geom_bar(aes(color=disturbance_type))
+#May recovery days compared to target
+recovery2 |>
+  dplyr::filter(month == "May") |>
+  ggplot(aes(x = field, y = test)) +
+  geom_point() +
+  geom_hline(yintercept = 18) +
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 6)
+  ) +
+  labs(
+    x = "Fields",
+    y = "Recovery Days",
+    title = "May Recovery Days By Field (Target = 18 days)"
+  )
+
+
+#June recovery days compared to target
+recovery2 |>
+  dplyr::filter(month == "June") |>
+  ggplot(aes(x = field, y = test)) +
+  geom_point() +
+  geom_hline(yintercept = 24) +
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 6)
+  ) +
+  labs(
+    x = "Fields",
+    y = "Recovery Days",
+    title = "June Recovery Days By Field (Target = 24 days)"
+  )
+
+
+#July recovery days compared to target
+recovery2 |>
+  dplyr::filter(month == "July") |>
+  ggplot(aes(x = field, y = test)) +
+  geom_point() +
+  geom_hline(yintercept = 30) +
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 6)
+  ) +
+  labs(
+    x = "Fields",
+    y = "Recovery Days",
+    title = "July Recovery Days By Field (Target = 30 days)"
+  )
+
+
+#August recovery days compared to target
+recovery2 |>
+  dplyr::filter(month == "August") |>
+  ggplot(aes(x = field, y = test)) +
+  geom_point() +
+  geom_hline(yintercept = 36) +
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 6)
+  ) +
+  labs(
+    x = "Fields",
+    y = "Recovery Days",
+    title = "August Recovery Days By Field (Target = 36 days)"
+  )
 
 
 
