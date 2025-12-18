@@ -7,9 +7,14 @@
 #the days column is calculated by taking the difference between a day_in
 #date and a day_out date. There are only "days" values associated with 
 #day_in dates.
+library(tidyverse)
+library(readxl)
 
-view(record_actual)
-view(record_plan)
+record_actual<-read_csv("2025 record actual.csv")
+record_plan<-read_csv("2025 record plan.csv")
+
+#view(record_actual)
+#view(record_plan)
 
 #-----getting rid of extraneous rows and columns---------------------------------------------------
 record_plan$X <- NULL
@@ -25,8 +30,8 @@ record_plan <- record_plan[-c(203:223), ]
 record_actual$X <- NULL
 record_actual$paddock_plot<- NULL
 
-record_plan <- record_plan %>% 
-  rename(move_type = move._type)
+#record_plan <- record_plan %>% 
+#  rename(move_type = move._type)
 
 record_plan$field <- record_plan$field |> 
   trimws()     # removes leading/trailing spaces
@@ -35,12 +40,13 @@ record_actual$field <- record_actual$field |>
   trimws()    
 
 #----------------exporting clean record_plan and record_actual-----------
-write_xlsx(record_plan, "record_plan.xlsx")
+# write_xlsx(record_plan, "record_plan.xlsx")
 
-write_xlsx(record_actual, "record_actual.xlsx")
+# write_xlsx(record_actual, "record_actual.xlsx")
 
+record_actual <- read_excel("record_actual.xlsx")
+record_plan  <- read_excel("record_plan.xlsx")
 
-  
 #the below plots take the plan and actual records and plot the "days"/grazing period
 #for each cow herd, by field
 #--------------------------plot for brood grazing periods-------------
@@ -63,7 +69,7 @@ df_brood_actual <- record_actual %>%
 record_brood <- bind_rows(df_brood_plan, df_brood_actual)
 
 
-ggplot(record, aes(x = field, y = days, color = source)) +
+ggplot(record_brood, aes(x = field, y = days, color = source)) +
   geom_point(size = 1.5, position = position_jitter(width = 0.2)) +
   theme_minimal() +
   theme(
@@ -82,16 +88,16 @@ y= "Grazing Period")
 df_feeders_plan <- record_plan %>% 
   filter(move_type == "day_in", herd == "feeders") %>%
   mutate(
-    source = "Planned",
-    paddock_plot = as.character(paddock_plot)
-  )
+    source = "Planned")
+    #paddock_plot = as.character(paddock_plot)
+ # )
 
 df_feeders_actual <- record_actual %>% 
   filter(move_type == "day_in", herd == "feeders") %>%
   mutate(
-    source = "Actual",
-    paddock_plot = as.character(paddock_plot)
-  )
+    source = "Actual")#,
+   # paddock_plot = as.character(paddock_plot)
+ # )
 
 record_feeders <- bind_rows(df_feeders_plan, df_feeders_actual)
 
