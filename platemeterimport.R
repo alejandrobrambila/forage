@@ -7,13 +7,10 @@
 #to october 2025.
 
 #--------reading in each platemeter csv and naming them by date---------
+library(tidyverse)
 
-#apr 21 is missing
-#apr21<-read.csv("./platemeter/2025-Apr-21-00-00-00.csv")|>
-#  filter(Cover>0)|>
-#  mutate(date=mdy("4/21/25"))
 
-apr21<-read.csv("./platemeter/2025-Apr-21-00-00-00.csv")|>
+apr21<-read.csv("./platemeter/2025-Apr-21-00-00-00 (1).csv")|>
   filter(Cover>0)|>
   mutate(date=mdy("4/21/25"))%>%
   select(-contains("X"))
