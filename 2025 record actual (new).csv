@@ -1,0 +1,212 @@
+herd,field,acres_grazed,move_type,days,date,cover,avg from sections,observer,Notes
+brood,GP1A,,day_in,4,4/15/2025,,,,with bales
+brood,GP1A,,day_out,,4/19/2025,1270,,,with bales
+brood,Briar,,day_in,3,4/19/2025,1802,,,
+brood,Briar,,day_out,,4/22/2025,1522,,,
+brood,GP_woods,,day_in,1,4/22/2025,1970,,,
+brood,GP_woods,,day_out,,4/23/2025,1793,,,
+brood,GP7,10.80,day_in,3,4/23/2025,1746,,,
+brood,GP7,10.80,day_out,,4/26/2025,1498,,,
+brood,GP8A,,day_in,2,4/26/2025,1829,,,
+brood,GP8A,,day_out,,4/28/2025,1390,,,
+brood,GP8B,,day_in,3,4/28/2025,2320,,,
+brood,GP8B,,day_out,,5/1/2025,2033,,,
+brood,GP6C ,,day_in,4,5/1/2025,2698,,,
+brood,GP6C ,,day_out,,5/5/2025,2248,,,
+brood,GP5D ,,day_in,2,5/5/2025,,,,
+brood,GP5D ,,day_out,,5/7/2025,,,,
+brood,GP4C ,,day_in,2,5/7/2025,3160,,,
+brood,GP4C,,day_out,,5/9/2025,2740,,,
+brood,GP4B ,,day_in,2,5/9/2025,3202,,,
+brood,GP4B,,day_out,,5/11/2025,2012,,,
+brood,GP4A,,day_in,3,5/11/2025,3076,,,
+brood,GP4A,,day_out,,5/14/2025,2527,,,
+brood,GP3,11.30,day_in,16,5/14/2025,2741,2741,,
+brood,GP3,11.30,day_out,,5/30/2025,2315,2315,,
+brood,GP1A,5.25,day_in,3,5/30/2025,4252,,,west section
+brood,GP1A,5.25,day_out,,6/2/2025,,,,west section
+brood,GP5B,,day_in,1,6/2/2025,,,,
+brood,GP5B,,day_out,,6/3/2025,,,,
+brood,GP6A,,day_in,8,6/3/2025,3790,,,
+brood,GP6A,,day_out,,6/11/2025,2768,,,
+brood,GP7,4.00,day_in,2,6/11/2025,3888,,,see notes (N section)
+brood,GP7,4.00,day_out,,6/13/2025,,,,see notes (N section)
+brood,GP3,3.38,day_in,3,6/13/2025,,,, this grazing didn't include area in the trees between buffer and plot 5
+brood,GP3,3.38,day_out,,6/16/2025,1562,,, this grazing didn't include area in the trees between buffer and plot 5
+brood,GP2B,,day_in,12,6/16/2025,4630,,,
+brood,GP2B,,day_out,,6/28/2025,2432,,,
+brood,GP2A,3.75,day_in,3,6/28/2025,3888,,,acreage from new borders drawn around wet area plus willows rarely or never grazed
+brood,GP2A,3.75,day_out,,7/1/2025,3524,,,acreage from new borders drawn around wet area plus willows rarely or never grazed
+brood,GP1B,,day_in,1,7/1/2025,,,,
+brood,GP1B,,day_out,,7/2/2025,2516,,,
+brood,GP1A,,day_in,4,7/2/2025,4126,,,
+brood,GP1A,,day_out,,7/6/2025,3720,,,
+brood,GP6A,8.69,day_in,6,7/6/2025,3551,3551,,
+brood,GP6A,8.69,day_out,,7/12/2025,2516,2516,,
+brood,GP7,4.00,day_in,4,7/12/2025,,,,
+brood,GP7,4.00,day_out,,7/16/2025,2068,,,
+brood,GP8A,,day_in,2,7/16/2025,,,,
+brood,GP8A,,day_out,,7/18/2025,,,,
+brood,GP7,6.83,day_in,2,7/18/2025,4168,,Zoe,
+brood,GP7,6.83,day_out,,7/20/2025,,,,
+brood,GP6C ,,day_in,2,7/20/2025,3916,,,
+brood,GP6C,,day_out,,7/22/2025,3162,,,
+brood,GP5D ,,day_in,4,7/22/2025,4112,,,
+brood,GP5D,,day_out,,7/26/2025,2451,2451,,
+brood,GP5B,,day_in,2,7/26/2025,4538,,,
+brood,GP5B,,day_out,,7/28/2025,2460,,,
+brood,GP5A,,day_in,2,7/28/2025,4466,,,
+brood,GP5A,,day_out,,7/30/2025,2292,,,
+brood,GP3,12.44,day_in,9,7/30/2025,4574,,,"plots 8,7,6,5"
+brood,GP3,12.44,day_out,,8/8/2025,,,,"plots 8,7,6,5"
+brood,GP4C ,,day_in,1,8/8/2025,,,,
+brood,GP4C,,day_out,,8/9/2025,2502,,,
+brood,GP4B ,,day_in,1,8/9/2025,4728,,,
+brood,GP4B,,day_out,,8/10/2025,3328,,,
+brood,GP4A,,day_in,3,8/10/2025,3846,,,
+brood,GP4A,,day_out,,8/13/2025,,,,
+brood,GP3,12.42,day_in,9,8/13/2025,,,,"plots 1,2,3,4, north buffer"
+brood,GP3,12.42,day_out,,8/22/2025,2516,,,"plots 1,2,3,4, north buffer"
+brood,GP2B,,day_in,5,8/22/2025,3034,,,
+brood,GP2B,,day_out,,8/27/2025,,,,
+brood,GP2A,3.75,day_in,2,8/27/2025,,,,acreage from new borders drawn around wet area plus willows rarely or never grazed
+brood,GP2A,3.75,day_out,,8/29/2025,2460,,,acreage from new borders drawn around wet area plus willows rarely or never grazed
+brood,GP1B,,day_in,4,8/29/2025,3538,,,
+brood,GP1B,,day_out,,9/2/2025,,,,
+brood,plains_wet,,day_in,4,9/2/2025,,,,
+brood,plains_wet,,day_out,,9/6/2025,3202,,,
+brood,long_meadow,,day_in,6,9/6/2025,5442,,,
+brood,long_meadow,,day_out,,9/12/2025,2600,,,
+brood,GP8A,,day_in,4,9/12/2025,2558,,,
+brood,GP8A,,day_out,,9/16/2025,0,,,
+brood,GP8C,,day_in,2,9/16/2025,,,,
+brood,GP8C,,day_out,,9/18/2025,1914,,,
+brood,GP7,,day_in,6,9/18/2025,3142,3142,Alysssa,photo
+brood,GP7,,day_out,,9/24/2025,2243,2243,,Skye did this move
+brood,GP6C ,,day_in,1,9/24/2025,3552,,Skye,Skye did this move
+brood,GP6C,,day_out,,9/25/2025,2138,,,
+brood,GP6B,,day_in,2,9/25/2025,3020,,,"Maia cover record, is this actually the out for 6C?"
+brood,GP6B,,day_out,,9/27/2025,1705,,Skye did move,Maia cover record
+brood,GP6A,,day_in,1,9/27/2025,,,Skye did move,
+brood,GP6A,,day_out,,9/28/2025,,,Alyssa did move,
+brood,GP5A,,day_in,1,9/28/2025,,,Alyssa did move,
+brood,GP5A,,day_out,,9/29/2025,,,Skye did move,
+brood,GP5C,,day_in,1,9/29/2025,3888,,Skye did move,
+brood,GP5C,,day_out,,9/30/2025,2180,,Alyssa did move,Maia cover record
+brood,GP4C ,,day_in,3,9/30/2025,,,Alyssa did move,
+brood,GP4C ,,day_out,,10/3/2025,2138,,Zoe did this move,Maia cover record
+brood,GP4B ,,day_in,3,10/3/2025,,,Zoe did this move,
+brood,GP4B ,,day_out,,10/6/2025,,,Alyssa did move,
+brood,GP4A,,day_in,3,10/6/2025,,,Alyssa did move,
+brood,GP4A,,day_out,,10/9/2025,,,Saskia did move,
+brood,GP3,,day_in,14,10/9/2025,2772,2772,Saskia did move,"start n. buffer, plots 8, 7, 6"
+brood,GP3,,day_out,,10/23/2025,2163,2163,Zoe did this move,
+brood,GP2B,,day_in,4,10/23/2025,,,Zoe did this move,
+brood,GP2B,,day_out,,10/27/2025,2264,,,
+brood,GP2A,3.75,day_in,2,10/27/2025,3020,,,acreage from new borders drawn around wet area plus willows rarely or never grazed
+brood,GP2A,3.75,day_out,,10/29/2025,2040,,,acreage from new borders drawn around wet area plus willows rarely or never grazed
+brood,GP1B,,day_in,1,10/29/2025,2502,,,
+brood,GP1B,,day_out,,10/30/2025,,,,
+brood,GP1A,,day_in,5,10/30/2025,,,,
+brood,GP1A,,day_out,,11/4/2025,,,Alyssa did move,
+brood,GP7,,day_in,5,11/4/2025,,,Alyssa did move,
+brood,GP7,,day_out,,11/9/2025,,,Alyssa did move,
+brood,leos,,day_in,5,11/9/2025,,,Alyssa did move,
+brood,leos,,day_out,,11/14/2025,,,Alyssa did move,
+brood,playground,,day_in,11,11/14/2025,,,Alyssa did move,Jane has some photos of this graze
+brood,playground,,day_out,,11/25/2025,,,Alyssa did move,
+brood,GP6,,day_in,5,11/25/2025,,,Alyssa did move,was this all of GP6?
+brood,GP6,,day_out,,11/29/2025,1746,,Alyssa did move,"photo, on both Zoe and Alyssa's phones"
+brood,GP1B,,day_in,1,11/29/2025,2040,,Alyssa did move,is this GP1A or all of GP1?
+brood,GP1B,,day_out,,11/30/2025,,,,
+brood,GP1A,,day_in,1,11/30/2025,,,,
+brood,GP1A,,day_out,,12/1/2025,,,,
+brood,Plains,,day_in,,12/1/2025,,,,
+brood,Plains,,day_out,,,,,,
+feeders,sunset_field,,day_in,2,5/1/2025,2005.6,,,
+feeders,sunset_field,,day_out,,5/3/2025,1508,,,
+feeders,sunset_hill,,day_in,3,5/3/2025,2418,,,
+feeders,sunset_hill,,day_out,,5/6/2025,2084.5,,,
+feeders,lower_sunset,,day_in,4,5/6/2025,3902,,,
+feeders,lower_sunset,,day_out,,5/10/2025,,,,
+feeders,pond_field,0.4,day_in,1,5/10/2025,,,,just dry corner
+feeders,pond_field,0.4,day_out,,5/11/2025,2278,,,just dry corner
+feeders,horse,3.7,day_in,9,5/11/2025,3776,,,"not including pond corner. borders of Horse should not include area in upper corner of Pond.  That corner has been used as partial ""Pond"" for 2025"
+feeders,horse,3.7,day_out,,5/20/2025,,,,"not including pond corner. borders of Horse should not include area in upper corner of Pond.  That corner has been used as partial ""Pond"" for 2025"
+feeders,lower_home,,day_in,3,5/20/2025,,,,
+feeders,lower_home,,day_out,,5/23/2025,,,,
+feeders,triangle_lower,,day_in,4,5/23/2025,,,,
+feeders,triangle_lower,,day_out,,5/27/2025,1970,,,
+feeders,railroad,,day_in,3,5/27/2025,4126,,,
+feeders,railroad,,day_out,,5/30/2025,2810,,,
+feeders,drainage,9.33,day_in,11,5/30/2025,3776,,,dryonly
+feeders,drainage,9.33,day_out,,6/10/2025,2614,,,dryonly
+feeders,lower_barberry,,day_in,3,6/10/2025,5750,,,
+feeders,lower_barberry,,day_out,,6/13/2025,2894,,,
+feeders,lower_underhill,,day_in,3,6/13/2025,6338,,,
+feeders,lower_underhill,,day_out,,6/16/2025,,,,
+feeders,sunset_field,,day_in,3,6/16/2025,,,,
+feeders,sunset_field,,day_out,,6/19/2025,2614,,,
+feeders,sunset_hill,,day_in,6,6/19/2025,4700,,,
+feeders,sunset_hill,,day_out,,6/25/2025,2572,,,
+feeders,pond_field,0.4,day_in,3,6/25/2025,4616,,,dry corner only
+feeders,pond_field,0.4,day_out,,6/28/2025,3062,,,dry corner only
+feeders,horse,3.7,day_in,9,6/28/2025,4042,,,"not including pond corner. borders of Horse should not include area in upper corner of Pond.  That corner has been used as partial ""Pond"" for 2025"
+feeders,horse,3.7,day_out,,7/7/2025,3342,,,"not including pond corner. borders of Horse should not include area in upper corner of Pond.  That corner has been used as partial ""Pond"" for 2025"
+feeders,lower_home,,day_in,3,7/7/2025,,,,
+feeders,lower_home,,day_out,,7/10/2025,2152,,,
+feeders,triangle_lower,,day_in,3,7/10/2025,4658,,,
+feeders,triangle_lower,,day_out,,7/13/2025,,,,
+feeders,railroad,,day_in,3,7/13/2025,,,,
+feeders,railroad,,day_out,,7/16/2025,2390,,,
+feeders,drainage,,day_in,14,7/16/2025,3745,,,"all, in sections"
+feeders,drainage,,day_out,,7/30/2025,2749,,,
+feeders,lower_underhill,,day_in,4,7/30/2025,5568,,,
+feeders,lower_underhill,,day_out,,8/3/2025,,,,
+feeders,lower_barberry,,day_in,3,8/3/2025,,,,
+feeders,lower_barberry,,day_out,,8/6/2025,,,,
+feeders,underhill,,day_in,10,8/6/2025,,,,
+feeders,underhill,,day_out,,8/16/2025,,,,
+feeders,barberry_woods,,day_in,2,8/16/2025,,,,
+feeders,barberry_woods,,day_out,,8/18/2025,2544,,,
+feeders,bull,,day_in,3,8/18/2025,3538,,,
+feeders,bull,,day_out,,8/21/2025,2810,,,
+feeders,sunset_field,,day_in,3,8/21/2025,3034,,,
+feeders,sunset_field,,day_out,,8/24/2025,2765,,,
+feeders,sunset_hill,,day_in,4,8/24/2025,4546,,,
+feeders,sunset_hill,,day_out,,8/28/2025,,,,
+feeders,pond_field,2.84,day_in,5,8/28/2025,,,,"all, including most of wet area, grazed in sections? Angie cow got stuck in mud"
+feeders,pond_field,2.84,day_out,,9/2/2025,,,,"all, including most of wet area, grazed in sections?"
+feeders,horse,2.8,day_in,6,9/2/2025,,,,3/4 total maybe (Ed cows in northern section)
+feeders,horse,2.8,day_out,,9/8/2025,1928,,,3/4 total maybe (Ed cows in northern section)
+feeders,lower_home,,day_in,2,9/8/2025,2390,,,
+feeders,lower_home,,day_out,,9/10/2025,2012,,,
+feeders,triangle_lower,,day_in,3,9/10/2025,2465,,,
+feeders,triangle_lower,,day_out,,9/13/2025,1930,,,
+feeders,triangle_upper,,day_in,4,9/13/2025,3155,,,
+feeders,triangle_upper,,day_out,,9/17/2025,2276,,,
+feeders,railroad,,day_in,2,9/17/2025,3328,,,
+feeders,railroad,,day_out,,9/19/2025,,,,
+feeders,briar,,day_in,14,9/19/2025,,,,
+feeders,briar,,day_out,,10/3/2025,2026,,,
+feeders,drainage,,day_in,10,10/3/2025,4126,,Zoe,"all, likely in 6 sections, entry cover averaged from 2 sections"
+feeders,drainage,,day_out,,10/13/2025,2628,,,"all, likely in 6 sections, entry cover averaged from 2 sections"
+feeders,lower_barberry,,day_in,3,10/13/2025,,,,
+feeders,lower_barberry,,day_out,,10/16/2025,,,,
+feeders,barberry_woods,,day_in,3,10/16/2025,,,,
+feeders,barberry_woods,,day_out,,10/19/2025,,,,
+feeders,wilson,4,day_in,6,10/19/2025,,,,"upper dry half, lower wet half was hayed"
+feeders,wilson,4,day_out,,10/25/2025,,,,"upper dry half, lower wet half was hayed"
+feeders,underhill,,day_in,5,10/25/2025,,,,
+feeders,underhill,,day_out,,10/30/2025,2432,,,
+feeders,underhill_wet,,day_in,7,10/30/2025,3219,,,
+feeders,underhill_wet,,day_out,,11/6/2025,,,,
+feeders,bull,,day_in,5,11/6/2025,,,,
+feeders,bull,,day_out,,11/11/2025,,,,
+feeders,sunset_hill,,day_in,3,11/11/2025,,,,
+feeders,sunset_hill,,day_out,,11/14/2025,2362,,,
+feeders,lower_sunset,,day_in,7,11/14/2025,,,,
+feeders,lower_sunset,,day_out,,11/21/2025,,,,
+feeders,williams_west,,day_in,4,11/21/2025,,,,including wet?
+feeders,williams_west,,day_out,,11/25/2025,,,,including wet?
+,,,,,,,,,

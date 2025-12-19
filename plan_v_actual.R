@@ -10,7 +10,11 @@
 library(tidyverse)
 library(readxl)
 
-record_actual<-read_csv("2025 record actual.csv")
+#record_actual<-read_csv("2025 record actual.csv")%>%
+ # select(1, 2, 4, 5, 6)
+record_actual_new<-read_csv("2025 record actual (new).csv")%>% # this version will have acreages! 
+  select(1, 2, 3, 4, 6, 7)
+
 plan<-read_csv("plan.csv")
 
 #view(record_actual)
@@ -27,10 +31,6 @@ plan$...13 <- NULL
 plan$paddock_plot<- NULL
 plan <- plan[-c(183:201), ] 
 
-record_actual$X <- NULL
-record_actual$paddock_plot<- NULL
-record_actual$...7<-NULL
-
 plan <- plan %>% 
   rename(move_type = "move _type")
 
@@ -39,13 +39,17 @@ plan$field <- plan$field |>
 
 record_actual$field <- record_actual$field |> 
   trimws()    
+record_actual_new$field <- record_actual_new$field |> 
+  trimws()    
 
 #----------------exporting clean record_plan and record_actual-----------
 # write_xlsx(record_plan, "record_plan.xlsx")
 
-# write_xlsx(record_actual, "record_actual.xlsx")
+#write_xlsx(record_actual, "record_actual.xlsx")
+#write_xlsx(record_actual_new, "record_actual_new.xlsx")
 
-record_actual <- read_excel("record_actual.xlsx")
+#record_actual <- read_excel("record_actual.xlsx")
+#record_actual_new <
 record_plan  <- read_excel("record_plan.xlsx")
 
 #the below plots take the plan and actual records and plot the "days"/grazing period
