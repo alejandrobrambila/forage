@@ -173,7 +173,7 @@ allplatemeter2 <- allplatemeter %>% select(-paddock_area, -equation_multiplier_a
 #plate metering map as a default for other dates.
 
  
-allplatemeter2 <- allplatemeter2 %>%
+allplatemeter3 <- allplatemeter2 %>%
 mutate(
 field = case_when(
       
@@ -422,7 +422,7 @@ field = case_when(
     )
   )
 
-allplatemeter2 <- allplatemeter2 %>% 
+allplatemeter3 <- allplatemeter3 %>% 
   rename(cover = Cover)
 
 #---------------------------------------------------------------------------------------------
@@ -442,7 +442,7 @@ maia_cover$cover <- gsub(",", "", maia_cover$cover)
 maia_cover$cover <- as.numeric(maia_cover$cover)
 
 #combines allplatemeter2 and maia_cover
-combined <- bind_rows(allplatemeter2, maia_cover)
+combined <- bind_rows(allplatemeter3, maia_cover)
 
 #assigning the agroecology platemeter rows a "move_type"
 combined$move_type[is.na(combined$move_type)] <- "agroecology"
@@ -463,7 +463,7 @@ ggplot(filter(combined, field=="GP1A"), aes(x=date, y=cover, color=move_type))+
 install.packages("writexl")
 library(writexl)
 
-write_xlsx(allplatemeter2, "allplatemeter2.xlsx")
-
-
+write_xlsx(allplatemeter3, "agroecology_platemeter.xlsx")
 write_xlsx(maia_cover, "maiaclean.xlsx")
+write_xlsx(combined, "all_platemeter.xlsx")
+
