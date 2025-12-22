@@ -37,6 +37,43 @@ plan <- plan %>%
 plan$field <- plan$field |> 
   trimws()     # removes leading/trailing spaces
 
+#fix names in plan to be consistent with names in actuals_platemeter_final
+library(dplyr)
+
+plan <- plan |>
+  mutate(field = case_when(
+    field == "GP_woods" ~ "GP Woods",
+    field == "leos" ~ "Leos",
+    field == "playground" ~ "Playground",
+    field == "sunset_field" ~ "Sunset Field",
+    field == "sunset_hill" ~ "Sunset Hill",
+    field == "lower_sunset" ~ "Lower Sunset",
+    field == "horse" ~ "Horse",
+    field == "lower_home" ~ "Lower Home",
+    field == "pow_east" ~ "POW East",
+    field == "triangle_upper" ~ "Upper Triangle",
+    field == "triangle_lower" ~ "Lower Triangle",
+    field == "lower_barberry" ~ "Lower Barberry",
+    field == "lower_underhill" ~ "Lower Underhill",
+    field == "barberry_woods" ~ "Barberry Woods",
+    field == "underhill_wet" ~ "Underhill Wet Meadow",
+    field == "williams_west" ~ "Williams West",
+    field == "Leos" ~ "Leo's",
+    field == "GP1B" ~ "GP1B",
+    field == "GP1" ~ "GP1A",
+    field == "GP6" ~ "GP6A",
+    field == "jimmys" ~ "Jimmy's",
+    field == "briar" ~ "Briar",
+    field == "bull"~ "Bull",
+    field == "wilson" ~ "Wilson",
+    field == "wilson_wet" ~ "Wilson Wet",
+    field == "railroad" ~ "Railroad",
+    field == "drainage" ~ "Drainage",
+    field == "underhill" ~ "Underhill",
+    TRUE ~ field
+  ))
+
+
 record_actual$field <- record_actual$field |> 
   trimws()    
 record_actual_new$field <- record_actual_new$field |> 
@@ -66,7 +103,7 @@ df_brood_plan <- plan %>%
   
 record_actual<-record_actual_new
 
-df_brood_actual <- record_actual %>% 
+df_brood_actual <- record_actual_new %>% 
   filter(move_type == "day_in", herd == "brood") %>%
   mutate(
     source = "Actual",
@@ -95,10 +132,11 @@ df_feeders_plan <- plan %>%
   filter(move_type == "day_in", herd == "feeders") %>%
   mutate(
     source = "Planned")
-    #paddock_plot = as.character(paddock_plot)
+    
+#paddock_plot = as.character(paddock_plot)
  # )
 
-df_feeders_actual <- record_actual %>% 
+df_feeders_actual <- record_actual_new %>% 
   filter(move_type == "day_in", herd == "feeders") %>%
   mutate(
     source = "Actual")#,
@@ -124,16 +162,43 @@ ggplot(record_feeders, aes(x = field, y = days, color = source)) +
 #the below code takes the average number of days/grazing period per field 
 #grouped by herd for record_plan and record_actual. The df's are then combined into
 #combined_avg and plotted 
+library(dplyr)
+
+library(dplyr)
+
+actuals_platemeter_final <- actuals_platemeter_final %>%
+  mutate(herd = if_else(
+    field %in% c(
+      "Leo's",
+      "GP1A",
+      "GP6A"
+    ) &
+      move_type %in% c("day_in", "day_out"),
+    "brood",
+    herd
+  ))
+
+actuals_platemeter_final <- actuals_platemeter_final %>%
+  mutate(herd = if_else(
+    field %in% c(
+      "Underhill Wet Meadow",
+      "Williams West" ) &
+      move_type %in% c("day_in", "day_out") &
+      is.na(herd),
+    "feeders",
+    herd
+  ))
+
 avg_plan <- plan %>%
   filter(move_type == "day_in") %>%
   group_by(herd, field) %>%
   summarise(avg_days = mean(days, na.rm = TRUE), .groups = "drop") %>%
   mutate(source = "Planned")
 
-avg_actual <- record_actual %>%
-  filter(move_type == "day_in") %>%
+avg_actual <- actuals_platemeter_final %>%
+  filter(move_type == "day_out", harvest_cycle_skip == "dont_skip" ) %>%
   group_by(herd, field) %>%
-  summarise(avg_days = mean(days, na.rm = TRUE), .groups = "drop") %>%
+  summarise(avg_days = mean(impact_period, na.rm = TRUE), .groups = "drop")%>%
   mutate(source = "Actual")
 
 #making data types consistent
@@ -296,7 +361,17 @@ ggplot(days, aes(x=field, y=prop))+
   
   
 
+###############################
+avg_plan <- plan %>%
+  filter(move_type == "day_in") %>%
+  group_by(herd, field) %>%
+  summarise(avg_days = mean(days, na.rm = TRUE), .groups = "drop") %>%
+  mutate(source = "Planned")
 
+avg_actual1 <- actuals_platemeter_final %>%
+  filter(move_type == "day_out", harvest_cycle_skip == "dont_skip" ) %>%
+  group_by(herd, field) %>%
+  summarise(avg_days1 = mean(impact_period, na.rm = TRUE), .groups = "drop")
 
 
 
