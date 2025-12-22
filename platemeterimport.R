@@ -1,7 +1,6 @@
 ##### READ ME #######################
-#this script imports and combines the platemetering done by the Appleton 
-#Farms agroecology team during the 2025 growing season with the platemetering done
-#by the livestock team.
+#this script imports and cleans the platemetering done by the Appleton 
+#Farms agroecology team 
 
 #First, the agroecology data. These data were taken about every other week, april 
 #to october 2025.
@@ -463,7 +462,6 @@ ggplot(filter(combined, field=="GP1A"), aes(x=date, y=cover, color=move_type))+
 install.packages("writexl")
 library(writexl)
 
-write_xlsx(allplatemeter3, "agroecology_platemeter.xlsx")
-write_xlsx(maia_cover, "maiaclean.xlsx")
-write_xlsx(combined, "all_platemeter.xlsx")
+#write_xlsx(allplatemeter3, "agroecology_platemeter_2025.xlsx")
+
 
