@@ -174,13 +174,44 @@ actuals_platemeter1<-bind_rows(ap_arranged_ins, ap_arranged_outs, hay_dates)%>%
   fill(int_cycle)%>%
   mutate(int_cover=cover)%>%
   group_by(field, int_cycle)%>%
-  mutate(int_cover=na.approx(int_cover, na.rm=F, rule=2))
+  mutate(int_cover=na.approx(int_cover, na.rm=F, rule=2))%>% 
+  group_by(field, herd)%>%
+  mutate(frac_acres=acres_impacted/acres, frac_max_acres=acres_impacted/max(acres_impacted))%>%
+  ungroup()%>%
+  select(date, field, acres, acres_impacted, frac_acres, frac_max_acres, move_type, herd, int_cover, hay_cycle, graze_cycle, harvest_cycle, int_cycle)%>%
+  rename(cover=int_cover, regrowth_cycle=int_cycle)%>%
+  mutate(herd=ifelse(move_type=="hay_in"|move_type=="hay_out", "hay", herd))%>%
+  mutate(acres_impacted=ifelse(move_type=="agroecology", NA, acres_impacted))%>%
+  mutate(frac_acres=ifelse(move_type=="agroecology", NA, frac_acres))%>%
+  mutate(frac_max_acres=ifelse(move_type=="agroecology", NA, frac_max_acres))%>%
+  group_by(field, herd, harvest_cycle)%>%
+  mutate(harvest_cycle_skip=sum(frac_max_acres))%>%
+  mutate(harvest_cycle_skip=ifelse(sum(harvest_cycle_skip<1),"skip", "dont_skip"))%>%
+  mutate(harvest_cycle_skip = ifelse (field=="GP3"&(move_type=="day_in"|move_type=="day_out")&herd=="brood"&(harvest_cycle==1|harvest_cycle==3),"dont_skip", harvest_cycle_skip))
+
+#calculate dates and join in
+calc_dates<-actuals_platemeter1%>%
+  ungroup()%>%
+  filter(move_type!="agroecology")%>%
+  select(field, move_type, herd, harvest_cycle, date)%>%
+  pivot_wider(names_from = move_type, values_from = date)%>%
+  mutate(impact_period=day_out-day_in)%>%
+  mutate(impact_period=ifelse(is.na(impact_period), 2 , impact_period))%>%
+  select(field, herd, harvest_cycle, impact_period)
+
+#calculate rest period
+#calc_rest<-actuals_platemeter1%>%
+#  ungroup()%>%
+#  filter(move_type!="agroecology")%>%
+#  select(field, move_type, herd, regrowth_cycle, date)%>%
+#  pivot_wider(names_from = move_type, values_from = date)%>%
+ # mutate(impact_period=day_out-day_in)%>%
+ # mutate(impact_period=ifelse(is.na(impact_period), 2 , impact_period))%>%
+ # select(field, herd, harvest_cycle, impact_period)
+
 
 #export a clean version for others. with platemeters filled in as much as possible and acreages
-final_actuals_export<-actuals_platemeter1%>% 
-  select(date, field, acres, acres_impacted, move_type, herd, int_cover, hay_cycle, graze_cycle, harvest_cycle, int_cycle)%>%
-  rename(cover=int_cover, regrowth_cycle=int_cycle)%>%
-  mutate(herd=ifelse(move_type=="hay_in"|move_type=="hay_out", "hay", herd))
+final_actuals_export<-left_join(actuals_platemeter1, calc_dates)
 
 #write_csv(final_actuals_export, "actuals_platemeter_final")
 
