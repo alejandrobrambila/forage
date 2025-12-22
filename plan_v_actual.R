@@ -13,7 +13,7 @@ library(readxl)
 #record_actual<-read_csv("2025 record actual.csv")%>%
  # select(1, 2, 4, 5, 6)
 record_actual_new<-read_csv("2025 record actual (new).csv")%>% # this version will have acreages! 
-  select(1, 2, 3, 4, 6, 7)
+  select(1, 2, 3, 4, 5, 6, 7)
 
 plan<-read_csv("plan.csv")
 
@@ -64,6 +64,7 @@ df_brood_plan <- plan %>%
     source = "Planned",
    )
   
+record_actual<-record_actual_new
 
 df_brood_actual <- record_actual %>% 
   filter(move_type == "day_in", herd == "brood") %>%
