@@ -27,6 +27,7 @@ plan$...9 <- NULL
 plan$...10 <- NULL
 plan$...11 <- NULL
 plan$...12 <- NULL
+
 plan$...13 <- NULL
 plan$paddock_plot<- NULL
 plan <- plan[-c(183:201), ] 
@@ -146,6 +147,7 @@ df_feeders_actual <- record_actual_new %>%
 record_feeders <- bind_rows(df_feeders_plan, df_feeders_actual)
 
 
+
 ggplot(record_feeders, aes(x = field, y = days, color = source)) +
   geom_point(size = 1.5, position = position_jitter(width = 0.2)) +
   theme_minimal() +
@@ -261,7 +263,7 @@ ggplot(
   filter(plan, move_type == "day_in", herd == "brood")|>
     count(field)%>%
     mutate(field = reorder(field, n)),
-  aes(x = field, y = n)
+  aes(x = field, y = n, fill=n)
 ) +
  geom_col()+
   theme(
@@ -279,7 +281,7 @@ ggplot(
   filter(record_actual, move_type == "day_in", herd == "brood")|>
     count(field)%>%
     mutate(field = reorder(field, n)),
-  aes(x = field, y = n)
+  aes(x = field, y = n, fill=n)
 ) +
   geom_col() +
   theme(
@@ -296,7 +298,7 @@ ggplot(
   filter(plan, move_type == "day_in", herd == "feeders")|>
     count(field)%>%
     mutate(field = reorder(field, n)),
-  aes(x = field, y = n)
+  aes(x = field, y = n, fill=n)
 ) +
   geom_col()+
   theme(
@@ -308,13 +310,14 @@ ggplot(
   filter(record_actual, move_type == "day_in", herd == "feeders")|>
     count(field)%>%
     mutate(field = reorder(field, n)),
-  aes(x = field, y = n)
+  aes(x = field, y = n, fill=n)
 ) +
   geom_col()+
   theme(
     axis.text.x = element_text(angle = 90, hjust = 1, size = 6)
   )
 
+####################################################################################
 ####################################################################################
 #below demonstrates a different way to visualize the difference between 
 #the average planned days per field and the average actual days per field
@@ -325,9 +328,11 @@ plan_days <- plan|>
   filter(move_type == "day_in")|>
   mutate(source="plan")
 
-actual_days <- record_actual|>
-  filter(move_type == "day_in")|>
-  mutate(source="actual")
+
+actual_days1 <- actuals_platemeter_final %>%
+  filter(move_type == "day_out", harvest_cycle_skip == "dont_skip" ) %>%
+  group_by(herd, field) %>%
+  mutate(source = "Actual")
 
 #"days" first combines plan_days and actual_days. Then pivot_wider
 #creates two new columns ("plan" and "actual") from the source column
@@ -335,43 +340,48 @@ actual_days <- record_actual|>
 #from plan and actual columns.
 #mutate(prop = avg_difference/plan) displays values that allow us to see by what proportion
 #the difference in planned vs actual days is.
-days<-rbind(plan_days, actual_days)|>
-  select(-date)|>
+
+#making the columns in actual_days1 and plan_days the same for rbind
+actual_days1 <- actual_days1 |>
+  select(-date, -acres,-acres_impacted,-frac_acres,-frac_max_acres,-hay_cycle,
+         -graze_cycle,-harvest_cycle, -harvest_cycle_skip, -regrowth_cycle,
+         -cover)
+actual_days1 <- actual_days1 %>% 
+  rename(days = "impact_period")
+
+plan_days <- plan_days|>
+  select(-date)
+
+#creating "days" df
+days<-rbind(plan_days, actual_days1)|>
   filter(!is.na(days))|>
   group_by(field, herd, source)|>
   summarize(avg_days = mean(days))|>
   pivot_wider(names_from = source,
               values_from = avg_days)|>
-  mutate(avg_difference = actual-plan)|>
-  mutate(prop = avg_difference/plan)
+  mutate(avg_difference = Actual-plan)|>
+  mutate(prop = avg_difference/plan)|>
 
-#answers question 2B 
-ggplot(days, aes(x=field, y=prop))+
-  geom_point()+
-  geom_hline(yintercept = 0)+
+
+#answers question 3B - length of time spent in each field, by field. 
+
+ggplot(
+  days |> filter(!is.na(prop)),
+  aes(x = field, y = prop)
+) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
   theme(
     axis.text.x = element_text(angle = 90, hjust = 1, size = 6)
-  )+
+  ) +
   labs(
-    title= "Difference in planned versus actual use of fields",
+    title = "Difference in Field Use",
     x = "Field",
     y = "Proportional Difference"
   )
 
   
-  
 
-###############################
-avg_plan <- plan %>%
-  filter(move_type == "day_in") %>%
-  group_by(herd, field) %>%
-  summarise(avg_days = mean(days, na.rm = TRUE), .groups = "drop") %>%
-  mutate(source = "Planned")
-
-avg_actual1 <- actuals_platemeter_final %>%
-  filter(move_type == "day_out", harvest_cycle_skip == "dont_skip" ) %>%
-  group_by(herd, field) %>%
-  summarise(avg_days1 = mean(impact_period, na.rm = TRUE), .groups = "drop")
 
 
 
