@@ -10,27 +10,15 @@
 library(tidyverse)
 library(readxl)
 
-#record_actual<-read_csv("2025 record actual.csv")%>%
- # select(1, 2, 4, 5, 6)
+#reading in and cleaning up data
+
 record_actual_new<-read_csv("2025 record actual (new).csv")%>% # this version will have acreages! 
   select(1, 2, 3, 4, 5, 6, 7)
 
-plan<-read_csv("plan.csv")
+plan<-read_csv("plan.csv")%>%
+  select(-7,-8,-9,-10,-11,-12,-13, -paddock_plot)
 
-#view(record_actual)
-#view(record_plan)
-
-#-----getting rid of extraneous rows and columns---------------------------------------------------
-plan$...7 <- NULL
-plan$...8 <- NULL
-plan$...9 <- NULL
-plan$...10 <- NULL
-plan$...11 <- NULL
-plan$...12 <- NULL
-
-plan$...13 <- NULL
-plan$paddock_plot<- NULL
-plan <- plan[-c(183:201), ] 
+plan <- plan[-c(183:201), ]
 
 plan <- plan %>% 
   rename(move_type = "move _type")
@@ -38,8 +26,11 @@ plan <- plan %>%
 plan$field <- plan$field |> 
   trimws()     # removes leading/trailing spaces
 
+record_actual_new$field <- record_actual_new$field |> 
+  trimws()  
+
+##############################################################################
 #fix names in plan to be consistent with names in actuals_platemeter_final
-library(dplyr)
 
 plan <- plan |>
   mutate(field = case_when(
@@ -74,12 +65,7 @@ plan <- plan |>
     TRUE ~ field
   ))
 
-
-record_actual$field <- record_actual$field |> 
-  trimws()    
-record_actual_new$field <- record_actual_new$field |> 
-  trimws()    
-
+####################################################################################
 #----------------exporting clean record_plan and record_actual-----------
 # write_xlsx(record_plan, "record_plan.xlsx")
 
@@ -88,86 +74,19 @@ record_actual_new$field <- record_actual_new$field |>
 
 #record_actual <- read_excel("record_actual.xlsx")
 #record_actual_new <
-record_plan  <- read_excel("record_plan.xlsx")
-
-#the below plots take the plan and actual records and plot the "days"/grazing period
-#for each cow herd, by field
-#--------------------------plot for brood grazing periods-------------
-#df_brood_plan and df_brood_actual take separate parts of record_plan and 
-#record_actual and add a column ("source"). They are then combined in "record_brood"
-#with each row assigned either planned or actual under the column source.
-df_brood_plan <- plan %>% 
-  filter(move_type == "day_in", herd == "brood") %>%
-  mutate(
-    source = "Planned",
-   )
-  
-record_actual<-record_actual_new
-
-df_brood_actual <- record_actual_new %>% 
-  filter(move_type == "day_in", herd == "brood") %>%
-  mutate(
-    source = "Actual",
-  )
-
-record_brood <- bind_rows(df_brood_plan, df_brood_actual)
-
-
-ggplot(record_brood, aes(x = field, y = days, color = source)) +
-  geom_point(size = 1.5, position = position_jitter(width = 0.2)) +
-  theme_minimal() +
-  theme(
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 6)
-  ) +
-  labs(color = "Dataset",
-title = "Brood Planned vs. Actual Grazing Periods",
-x = "Field",
-y= "Grazing Period")
-
-#-------------plot for feeders grazing periods-----------------------------
-#df_feeders_plan and df_feeders_actual take separate parts of record_plan and 
-#record_actual and add a column ("source"). They are then combined in "record_brood"
-#with each row assigned either planned or actual under the column source.
-
-df_feeders_plan <- plan %>% 
-  filter(move_type == "day_in", herd == "feeders") %>%
-  mutate(
-    source = "Planned")
-    
-#paddock_plot = as.character(paddock_plot)
- # )
-
-df_feeders_actual <- record_actual_new %>% 
-  filter(move_type == "day_in", herd == "feeders") %>%
-  mutate(
-    source = "Actual")#,
-   # paddock_plot = as.character(paddock_plot)
- # )
-
-record_feeders <- bind_rows(df_feeders_plan, df_feeders_actual)
+#record_plan  <- read_excel("record_plan.xlsx")
+#####################################################################################
 
 
 
-ggplot(record_feeders, aes(x = field, y = days, color = source)) +
-  geom_point(size = 1.5, position = position_jitter(width = 0.2)) +
-  theme_minimal() +
-  theme(
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 6)
-  ) +
-  labs(color = "Dataset",
-       title = "Feeders Planned vs. Actual Grazing Periods",
-       x = "Field",
-       y= "Grazing Period")
-
-
-#----now graphing the average grazing period per field across the season-----
+#----graphing the average grazing period per field across the season-----
 #the below code takes the average number of days/grazing period per field 
 #grouped by herd for record_plan and record_actual. The df's are then combined into
 #combined_avg and plotted 
-library(dplyr)
 
-library(dplyr)
+actuals_platemeter_final <-read.csv("actuals_platemeter_final")
 
+#assigning a herd to Leo's, GP1A, GP6A
 actuals_platemeter_final <- actuals_platemeter_final %>%
   mutate(herd = if_else(
     field %in% c(
@@ -180,6 +99,7 @@ actuals_platemeter_final <- actuals_platemeter_final %>%
     herd
   ))
 
+#assigning a herd to Underhill wet meadow, williams west
 actuals_platemeter_final <- actuals_platemeter_final %>%
   mutate(herd = if_else(
     field %in% c(
@@ -191,12 +111,16 @@ actuals_platemeter_final <- actuals_platemeter_final %>%
     herd
   ))
 
+#create df avg_plan which gives average planned days spent per field
+#and assigns a source of "Planned"
 avg_plan <- plan %>%
   filter(move_type == "day_in") %>%
   group_by(herd, field) %>%
   summarise(avg_days = mean(days, na.rm = TRUE), .groups = "drop") %>%
   mutate(source = "Planned")
 
+#create df avg_actual which gives the average days spent per field
+#and assigns a source of "Actual"
 avg_actual <- actuals_platemeter_final %>%
   filter(move_type == "day_out", harvest_cycle_skip == "dont_skip" ) %>%
   group_by(herd, field) %>%
@@ -244,8 +168,9 @@ ggplot(combined_avg, aes(x = field, y = avg_days, color = source)) +
   )
 
 
-
-#Moving on from grazing periods, now we will count the 
+###################################################################################
+#QUESTION 3A
+#Moving on from grazing periods, now we will count the
 #number of times a field was grazed
 
 #counts the number of times a field was planned to be
@@ -255,7 +180,7 @@ filter(plan, move_type == "day_in")|>
 
 #counts the number of times a field was actually grazed throughout the whole
 #season
-filter(record_actual, move_type == "day_in")|>
+filter(record_actual_new, move_type == "day_in")|>
   count(field)
 
 #This plot shows the planned number of times a field was grazed for brood
@@ -278,7 +203,7 @@ ggplot(
 #This plot shows the actual number of times a field was grazed for brood
 
 ggplot(
-  filter(record_actual, move_type == "day_in", herd == "brood")|>
+  filter(record_actual_new, move_type == "day_in", herd == "brood")|>
     count(field)%>%
     mutate(field = reorder(field, n)),
   aes(x = field, y = n, fill=n)
@@ -307,7 +232,7 @@ ggplot(
 
 #This plot shows the actual number of times a field was grazed for feeders
 ggplot(
-  filter(record_actual, move_type == "day_in", herd == "feeders")|>
+  filter(record_actual_new, move_type == "day_in", herd == "feeders")|>
     count(field)%>%
     mutate(field = reorder(field, n)),
   aes(x = field, y = n, fill=n)
@@ -353,19 +278,19 @@ plan_days <- plan_days|>
   select(-date)
 
 #creating "days" df
-days<-rbind(plan_days, actual_days1)|>
+days_df<-rbind(plan_days, actual_days1)|>
   filter(!is.na(days))|>
   group_by(field, herd, source)|>
   summarize(avg_days = mean(days))|>
   pivot_wider(names_from = source,
               values_from = avg_days)|>
   mutate(avg_difference = Actual-plan)|>
-  mutate(prop = avg_difference/plan)|>
+  mutate(prop = avg_difference/plan)
 
 
-#answers question 3B - length of time spent in each field, by field. 
+#ANSWERS QUESTION 3B - length of time spent in each field, by field. 
   ggplot(
-    days |> filter(!is.na(avg_difference)),
+    days_df |> filter(!is.na(avg_difference)),
     aes(x = field, y = avg_difference)
   ) +
   geom_point() +
@@ -380,9 +305,9 @@ days<-rbind(plan_days, actual_days1)|>
   )
   
   
-  
+#plots the same but difference is a proportion  
 ggplot(
-  days |> filter(!is.na(prop)),
+  days_df |> filter(!is.na(prop)),
   aes(x = field, y = prop)
 ) +
   geom_point() +
@@ -396,8 +321,36 @@ ggplot(
     y = "Proportional Difference"
   )
 
-  
 
+####################################################################################################
+####################################################################################################
+#QUESTION 2B - TOTAL DURATION
+#planned average time spent in fields overall
+
+overall_avg_plan_days <- plan %>%
+  summarise(
+    overall_avg_plan_days = mean(days, na.rm = TRUE)
+  )
+
+#actual average time spent in fields overall 
+overall_avg_actual_days <- filter(actuals_platemeter_final, move_type == "day_out") %>%
+  summarise(
+    overall_avg_actual_days = mean(impact_period, na.rm = TRUE)
+  )
+
+#total planned days grazed
+total_plan_days <- plan %>%
+  summarise(
+    total_plan_days = sum(days, na.rm = TRUE)
+  )
+
+#total days grazed 
+total_days <- filter(actuals_platemeter_final, move_type == "day_out") %>%
+  summarise(
+    total_days = sum(impact_period, na.rm = TRUE)
+  )
+
+  
 
 
 
