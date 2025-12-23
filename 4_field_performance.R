@@ -213,9 +213,12 @@ calc_dates<-actuals_platemeter1%>%
 #export a clean version for others. with platemeters filled in as much as possible and acreages
 final_actuals_export<-left_join(actuals_platemeter1, calc_dates)
 
-#write_csv(final_actuals_export, "actuals_platemeter_final")
+rm(all_platemeter, ap_arranged, ap_arranged_ins, ap_arranged_outs, calc_dates, record_actual, hay_dates, hay_dates2)
 
-ggplot(final_actuals_export, aes(date, cover, color=move_type)) +geom_point()+ facet_wrap(~field)
+#write_csv(final_actuals_export, "actuals_platemeter_final.csv")
+
+ggplot(final_actuals_export, aes(date, cover, color=move_type)) +
+  geom_point()+ facet_wrap(~field) + xlab("") +ylab("lb Dry Matter / Acre (measured by Platemeter)")
 
 
 # filter down to just ins and outs (now filled), spread, and subtract to get total
@@ -231,23 +234,36 @@ in_out <- filter(ungroup(final_actuals_export), move_type!='agroecology')%>%
   mutate(sum=sum(harvest, na.rm=T))%>%
   mutate(harvest_acres=harvest*acres_impacted, sum_acres=sum(harvest_acres))
 
+totals_by_herd<-in_out%>%
+  ungroup()%>%
+  group_by(herd)%>%
+  dplyr::summarize(harvest=sum(harvest_acres, na.rm=T))
+
 
 ## THESE SHOW CUMULATIVE LIVESTOCK HARVEST BASED ON IN/OUT PLATEMETER
 # there is some missing values still - those are represented as zero
-ggplot(in_out, aes(reorder(field, desc(sum)), harvest, color=as.factor(harvest_cycle))) +geom_point()+
+ggplot(in_out, aes(reorder(field, desc(sum)), harvest, color=as.factor(harvest_cycle))) +geom_point(aes(shape=herd))+
   theme(
-    axis.text.x = element_text(angle = 90, hjust = 1, size = 6))
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 6))+
+  ylab("Total Forage Harvested per Cycle (Platemeter in - Platemeter out) lb DM / Acre")
+
+
 ggplot(in_out, aes(reorder(field, desc(sum)), sum)) +geom_point()+
   theme(
-    axis.text.x = element_text(angle = 90, hjust = 1, size = 6))
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 6))+
+  ylab("Total Forage Harvested (Platemeter in - Platemeter out) lb DM / Acre")
 
 # by acre
 ggplot(in_out, aes(reorder(field, desc(sum_acres)), harvest_acres, color=as.factor(herd))) +geom_point()+
   theme(
-    axis.text.x = element_text(angle = 90, hjust = 1, size = 6))
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 6))+
+  ylab("Total Forage Harvested per Cycle (Platemeter in - Platemeter out) lb DM")
+
+
 ggplot(in_out, aes(reorder(field, desc(sum_acres)), sum_acres)) +geom_point()+
   theme(
-    axis.text.x = element_text(angle = 90, hjust = 1, size = 6))
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 6))+
+  ylab("Total Forage Harvested (Platemeter in - Platemeter out) lb DM")
 
 #hay only (by platemeter)
 ggplot(filter(in_out, herd=="hay"), aes(reorder(field, desc(sum_acres)), harvest_acres, color=as.factor(herd))) +geom_point()+
@@ -265,5 +281,31 @@ ggplot(hay_lbs, aes(reorder(`field`,desc(harvest)), harvest)) +geom_point()+
   theme(
     axis.text.x = element_text(angle = 90, hjust = 1, size = 6))
 
+join<-select(in_out, field,herd, harvest_acres)%>%
+  filter(herd=="hay")%>%
+  rename(harvest=harvest_acres)%>%
+  select(-herd)%>%
+  mutate(source="platemeter")
 
+calibrate_hay<-select(hay_lbs, field, harvest)%>%
+  mutate(source="bales")%>%
+  bind_rows(join)%>%
+  group_by(field, source)%>%
+  dplyr::summarize(harvest=sum(harvest))%>%
+  pivot_wider(names_from = source, values_from=harvest)%>%
+  mutate(prop=(platemeter-bales)/bales*100)%>%
+  mutate(diff=platemeter-bales)
+
+sumsum<-calibrate_hay%>%
+  ungroup()%>%
+  dplyr::summarize(bales=sum(bales, na.rm=T), platemeter=sum(platemeter, na.rm=T))
+
+ggplot(calibrate_hay, aes(bales, platemeter))+ 
+  geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed", size = 1) +
+  geom_point(aes(color=field))
+
+
+ggplot(calibrate_hay, aes(bales, diff))+ 
+  #geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed", size = 1) +
+  geom_point(aes(color=field))
 
