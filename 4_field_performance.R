@@ -146,76 +146,160 @@ hay_dates2<-hay_dates%>%
 hay_dates<-bind_rows(hay_dates, hay_dates2)%>%
   left_join(names_acres)
 
+#mow dates
+rec<-read_csv("recovery_clean.csv")%>%
+  mutate(field=ifelse(field=="pond_field", "Pond", field))%>%
+  mutate(field=case_when(
+    field == "gp_woods" ~ "GP Woods",
+    field == "leos" ~ "Leos",
+    field == "playground" ~ "Playground",
+    field == "sunset_field" ~ "Sunset Field",
+    field == "sunset hill" ~ "Sunset Hill",
+    field == "lower_Sunset" ~ "Lower_sunset",
+    field == "horse" ~ "Horse",
+    field == "lower_home" ~ "Lower Home",
+    field == "pow_east" ~ "POW East",
+    field == "triangle_upper"~ "Upper Triangle",
+    field == "triangle_lower"~ "Lower Triangle",
+    field == "lower_barberry"~ "Lower Barberry",
+    field == "lower_underhill"~ "Lower Underhill",
+    field == "Underhill Veg Perimeter" ~ "underhill_veg",
+    field == "barberry_woods" ~ "Barberry Woods",
+    field == "underhill_wet" ~ "Underhill Wet Meadow",
+    field == "sunset_hill" ~ "Sunset Hill",
+    field == "lower_sunset" ~ "Lower Sunset",
+    field == "williams_west" ~ "Williams West",
+    field == "Broad Meadow Dry" ~ "Broad Meadow",
+    field == "Broad Meadow 1a" ~ "Broad Meadow",
+    field == "Leos" ~ "Leo's",
+    field == "GP1B" ~ "gp1b",
+    field == "GP1" ~ "GP1A",
+    field == "GP6" ~ "GP6A",
+    field == "jimmys" ~ "Jimmy's",
+    T~field))%>%
+  mutate(field=str_replace_all(field, "_", " "))%>%
+  mutate(field=str_replace_all(field, "Gp", "GP"))%>%
+  mutate(field=str_to_title(field))%>%
+  mutate(field=ifelse(str_starts(field, "Gp"), toupper(field), field))%>%
+  mutate(field=ifelse(field=="GP WOODS", "GP Woods", field))%>%
+  mutate(field=ifelse(field=="Upper Sunset", "Sunset Hill", field))%>%
+  mutate(disturbance_type=case_when(
+    disturbance_type == "graze" ~ "day_in",
+    disturbance_type == "mow" ~ "mow_in",
+    disturbance_type == "hay" ~ "hay_in",T~disturbance_type))%>%
+  rename(move_type=disturbance_type)%>%
+  rename(date=day_in_date)%>%select(1:4)
+
   
 library(zoo)
 
 actuals_platemeter1<-bind_rows(ap_arranged_ins, ap_arranged_outs, hay_dates)%>%
+  unique()%>%
+  full_join(rec)%>%
+
   arrange(field, date)%>%
+  
+  #calculate actual amount grazed
+  group_by(field, herd)%>%
+  mutate(frac_acres=acres_impacted/acres, frac_max_acres=acres_impacted/max(acres_impacted))%>%
+  ungroup()%>%
+  mutate(acres_impacted=ifelse(move_type=="agroecology", NA, acres_impacted))%>%
+  mutate(frac_acres=ifelse(move_type=="agroecology", NA, frac_acres))%>%
+  mutate(frac_max_acres=ifelse(move_type=="agroecology", NA, frac_max_acres))%>%
+  
+  #set up cycles (hay)
   group_by(field, move_type)%>%
   mutate(hay_cycle=row_number())%>%
   mutate(hay_cycle=ifelse(move_type=="hay_in", hay_cycle, NA))%>%
   group_by(field)%>%
   fill(hay_cycle)%>%
   mutate(hay_cycle=ifelse(is.na(hay_cycle), 0, hay_cycle))%>%
+  
+  #set up cycles (graze)
   group_by(field, move_type)%>%
+  mutate(graze_cycle0=row_number())%>%
+  mutate(graze_cycle0=ifelse(move_type=="agroecology"|move_type=="hay_out"|move_type=="mow_in", NA, graze_cycle0))%>%
+  mutate(graze_cycle0=ifelse(move_type=="hay_in", NA, graze_cycle0))%>%
+  group_by(field)%>%
+  fill(graze_cycle0)%>% 
+  mutate(graze_cycle0=ifelse(is.na(graze_cycle0), 0, graze_cycle0))%>%
+  
+  #indicate skips based on field acreage
+  group_by(field, herd, graze_cycle0)%>%
+  mutate(graze_cycle_skip=sum(frac_max_acres))%>%
+  mutate(graze_cycle_skip=ifelse(sum(graze_cycle_skip<1),"skip", "dont_skip"))%>%
+  mutate(graze_cycle_skip = ifelse (field=="GP3"&(move_type=="day_in"|move_type=="day_out")&herd=="brood"&(graze_cycle0==1|graze_cycle0==3),"dont_skip", graze_cycle_skip))%>%
+
+
+  group_by(field, move_type, graze_cycle_skip)%>%
   mutate(graze_cycle=row_number())%>%
-  mutate(graze_cycle=ifelse(move_type=="agroecology"|move_type=="hay_out", NA, graze_cycle))%>%
+  mutate(graze_cycle=ifelse(move_type=="agroecology"|move_type=="hay_out"|move_type=="mow_in"|graze_cycle_skip=="skip", NA, graze_cycle))%>%
   mutate(graze_cycle=ifelse(move_type=="hay_in", NA, graze_cycle))%>%
   group_by(field)%>%
-  #this cycle column resets when move in happens, and the subsequent move out and following AE readings are on that cycle
   fill(graze_cycle)%>% 
   mutate(graze_cycle=ifelse(is.na(graze_cycle), 0, graze_cycle))%>%
+  
+
+  group_by(field, move_type)%>%
+  mutate(mow_cycle=row_number())%>%
+  mutate(mow_cycle=ifelse(move_type!="mow_in", NA, mow_cycle))%>%
+  group_by(field)%>%
+  fill(mow_cycle)%>% 
+  mutate(mow_cycle=ifelse(is.na(mow_cycle), 0, mow_cycle))%>%
+  
+  #aggregated hay harvest impact, impact, recovery cycles
   mutate(harvest_cycle=graze_cycle+hay_cycle)%>%
-  mutate(int_cycle=ifelse(move_type=="day_in"|move_type=="hay_in", harvest_cycle-1, harvest_cycle))%>%
+  mutate(harvest_cycle0=graze_cycle0+hay_cycle)%>%
+  
+  mutate(impact_cycle=graze_cycle+hay_cycle+mow_cycle)%>%
+  
+  mutate(int_cycle=ifelse(move_type=="day_in"|move_type=="hay_in"|move_type=="mow_in", impact_cycle-1, impact_cycle))%>%
   mutate(int_cycle=ifelse(move_type=="agroecology", NA, int_cycle))%>%
+  
   group_by(field)%>%
   #this cycle resets on the move out.  it will allow interpolation per field per cycle to estimate what the forage would have been
   fill(int_cycle, .direction="up")%>% 
   fill(int_cycle)%>%
+  
   mutate(int_cover=cover)%>%
   group_by(field, int_cycle)%>%
   mutate(int_cover=na.approx(int_cover, na.rm=F, rule=2))%>% 
-  group_by(field, herd)%>%
-  mutate(frac_acres=acres_impacted/acres, frac_max_acres=acres_impacted/max(acres_impacted))%>%
-  ungroup()%>%
-  select(date, field, acres, acres_impacted, frac_acres, frac_max_acres, move_type, herd, int_cover, hay_cycle, graze_cycle, harvest_cycle, int_cycle)%>%
-  rename(cover=int_cover, regrowth_cycle=int_cycle)%>%
-  mutate(herd=ifelse(move_type=="hay_in"|move_type=="hay_out", "hay", herd))%>%
-  mutate(acres_impacted=ifelse(move_type=="agroecology", NA, acres_impacted))%>%
-  mutate(frac_acres=ifelse(move_type=="agroecology", NA, frac_acres))%>%
-  mutate(frac_max_acres=ifelse(move_type=="agroecology", NA, frac_max_acres))%>%
-  group_by(field, herd, harvest_cycle)%>%
-  mutate(harvest_cycle_skip=sum(frac_max_acres))%>%
-  mutate(harvest_cycle_skip=ifelse(sum(harvest_cycle_skip<1),"skip", "dont_skip"))%>%
-  mutate(harvest_cycle_skip = ifelse (field=="GP3"&(move_type=="day_in"|move_type=="day_out")&herd=="brood"&(harvest_cycle==1|harvest_cycle==3),"dont_skip", harvest_cycle_skip))
+  select(date, field, acres, acres_impacted, frac_max_acres, move_type, herd, int_cover, hay_cycle, graze_cycle, mow_cycle, impact_cycle, harvest_cycle, harvest_cycle0, int_cycle)%>%
 
+  rename(cover=int_cover, regrowth_cycle=int_cycle)%>%
+  mutate(herd=ifelse(move_type=="hay_in"|move_type=="hay_out", "hay", herd))
+  #clean up columns
+ 
+  
 #calculate dates and join in
 calc_dates<-actuals_platemeter1%>%
   ungroup()%>%
-  filter(move_type!="agroecology")%>%
-  select(field, move_type, herd, harvest_cycle, date)%>%
+  filter(move_type=="day_in"|move_type=="day_out")%>%
+  select(field, move_type, herd, harvest_cycle0, date)%>%
   pivot_wider(names_from = move_type, values_from = date)%>%
   mutate(impact_period=day_out-day_in)%>%
   mutate(impact_period=ifelse(is.na(impact_period), 2 , impact_period))%>%
-  select(field, herd, harvest_cycle, impact_period)
+  select(field, herd, harvest_cycle0, impact_period)
 
-#calculate rest period
-#calc_rest<-actuals_platemeter1%>%
-#  ungroup()%>%
-#  filter(move_type!="agroecology")%>%
-#  select(field, move_type, herd, regrowth_cycle, date)%>%
-#  pivot_wider(names_from = move_type, values_from = date)%>%
- # mutate(impact_period=day_out-day_in)%>%
- # mutate(impact_period=ifelse(is.na(impact_period), 2 , impact_period))%>%
- # select(field, herd, harvest_cycle, impact_period)
-
+#calc_recoveryactuals_platemeter1%>%
+#    ungroup()%>%
+#    filter(move_type!="agroecology")%>%
+#    select(field, move_type, herd, regrowth_cycle, date)%>%
+#    pivot_wider(names_from = move_type, values_from = date)%>%
+#   mutate(rest_period=day_out-day_in)%>%
+#   mutate(impact_period=ifelse(is.na(impact_period), 2 , impact_period))%>%
+#   select(field, herd, harvest_cycle, impact_period)
 
 #export a clean version for others. with platemeters filled in as much as possible and acreages
 final_actuals_export<-left_join(actuals_platemeter1, calc_dates)
+#calculate rest period
+
+
+
 
 rm(all_platemeter, ap_arranged, ap_arranged_ins, ap_arranged_outs, calc_dates, record_actual, hay_dates, hay_dates2)
 
-#write_csv(final_actuals_export, "actuals_platemeter_final.csv")
+write_csv(final_actuals_export, "actuals_platemeter_final.csv")
 
 ggplot(final_actuals_export, aes(date, cover, color=move_type)) +
   geom_point()+ facet_wrap(~field) + xlab("") +ylab("lb Dry Matter / Acre (measured by Platemeter)")
@@ -309,3 +393,15 @@ ggplot(calibrate_hay, aes(bales, diff))+
   #geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed", size = 1) +
   geom_point(aes(color=field))
 
+
+
+# 4b. Time to recovery
+
+recovery<-final_actuals_export%>%
+  group_by(field, regrowth_cycle)%>%
+  mutate(recdays=difftime(date, min(date), units="days"))
+
+ggplot(recovery, aes(recdays, cover, color=as.factor(regrowth_cycle))) +geom_line()+facet_wrap(~field)
+
+##### add mow dates for GP2a? 6b? lamson hill? uwm? w1A
+         

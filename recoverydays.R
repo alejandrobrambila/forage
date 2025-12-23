@@ -39,7 +39,7 @@ recovery2<-recovery|>
   mutate(day_in_date=mdy(day_in_date))|>
   mutate(totaldays=day_in_date-mdy("4/15/2025"))|>
   mutate(recovery_days=ifelse(is.na(recovery_days), 0, recovery_days))|>
-  mutate(test=ifelse(recovery_days==0, totaldays, recovery_days))
+  mutate(recovery_days=ifelse(recovery_days==0, totaldays, recovery_days))
 
 #adds the "target" column which asigns a target amount of days per recovery period
 #in months apr-sept.
@@ -48,7 +48,7 @@ recovery2<-recovery|>
 recovery2 <- recovery2 %>%
   mutate(month = month(day_in_date, label = TRUE, abbr = FALSE))
 recovery2$month_season <-NULL
-
+ rm(recovery)
 #October and November do not have target recovery days because the growing season is over
 recovery2 <- recovery2 %>%
   mutate(target = case_when(
@@ -58,8 +58,11 @@ recovery2 <- recovery2 %>%
     month == "July" ~ 30,
     month == "August" ~ 36,
     month == "September" ~ 42,
+    month == "October" ~ 50,
+    month == "November" ~ 60,
+    
   ))
-#----------------------------plotting----------------------------------------
+#----------------------------plotting by month----------------------------------------
 #April recovery days compared to target
 recovery2 |>
   dplyr::filter(month == "April") |>
@@ -74,7 +77,7 @@ recovery2 |>
     y = "Recovery Days",
     title = "April Recovery Days By Field (Target = 15 days)"
   )
-
+#write_csv(recovery2, "recovery_clean.csv")
 
 #May recovery days compared to target
 recovery2 |>
@@ -140,10 +143,17 @@ recovery2 |>
   )
 
 
+## plots across months ----
+
+ggplot(filter(recovery2, disturbance_num!=1), aes(reorder(field, recovery_days), recovery_days, color=as.factor(disturbance_num), shape=disturbance_type)) +geom_point(size=2)+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 6))
 
 
 
-
+sggplot(filter(recovery2, disturbance_num!=1), aes(reorder(field, recovery_days), y=recovery_days-target, color=as.factor(month), shape=disturbance_type)) +geom_point(size=2)+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 6)) + ylab("Difference between Actual and Target Rest Period") +
+  geom_hline(yintercept = 0) +xlab("")
+  
 
 
   

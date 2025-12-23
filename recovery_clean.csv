@@ -1,0 +1,137 @@
+field,disturbance_num,disturbance_type,day_in_date,target,recovery_days,totaldays,month
+GP1A,1,graze,2025-04-15,15,0,0,April
+Briar,1,graze,2025-04-19,15,4,4,April
+GP_woods,1,graze,2025-04-22,15,7,7,April
+GP7,1,graze,2025-04-23,15,8,8,April
+GP8A,1,graze,2025-04-26,15,11,11,April
+GP8B,1,graze,2025-04-28,15,13,13,April
+GP6C ,1,graze,2025-05-01,18,16,16,May
+GP5D ,1,graze,2025-05-05,18,20,20,May
+GP4C ,1,graze,2025-05-07,18,22,22,May
+GP4B ,1,graze,2025-05-09,18,24,24,May
+GP4A,1,graze,2025-05-11,18,26,26,May
+GP3 ,1,graze,2025-05-14,18,29,29,May
+GP1A,2,graze,2025-05-30,18,41,45,May
+GP5B,1,graze,2025-06-02,24,48,48,June
+GP6A,1,graze,2025-06-03,24,49,49,June
+GP7,2,graze,2025-06-11,24,46,57,June
+GP3 ,2,graze,2025-06-13,24,14,59,June
+GP2B,1,graze,2025-06-16,24,62,62,June
+GP2A,1,graze,2025-06-28,24,74,74,June
+GP1B,1,graze,2025-07-01,30,77,77,July
+GP1A,3,graze,2025-07-02,30,30,78,July
+GP6A,2,graze,2025-07-06,30,25,82,July
+GP7,3,graze,2025-07-12,30,29,88,July
+GP8A,2,graze,2025-07-16,30,79,92,July
+GP7,4,graze,2025-07-18,30,2,94,July
+GP6C ,2,graze,2025-07-20,30,76,96,July
+GP5D ,2,graze,2025-07-22,30,76,98,July
+GP5B,2,graze,2025-07-26,30,53,102,July
+GP5A,1,graze,2025-07-28,30,104,104,July
+GP3,3,graze,2025-07-30,30,44,106,July
+GP4C ,2,graze,2025-08-08,36,91,115,August
+GP4B ,2,graze,2025-08-09,36,90,116,August
+GP4A,2,graze,2025-08-10,36,88,117,August
+GP3,4,graze,2025-08-13,36,5,120,August
+GP2B,2,graze,2025-08-22,36,55,129,August
+GP2A,3,graze,2025-08-27,36,21,134,August
+GP1B,3,graze,2025-08-29,36,23,136,August
+plains_wet,1,graze,2025-09-02,42,140,140,September
+long_meadow,1,graze,2025-09-06,42,144,144,September
+GP8A,3,graze,2025-09-12,42,56,150,September
+GP8C,1,graze,2025-09-16,42,154,154,September
+GP7,5,graze,2025-09-18,42,60,156,September
+GP6C ,4,graze,2025-09-24,42,57,162,September
+GP6B,1,graze,2025-09-25,42,163,163,September
+GP6A,4,graze,2025-09-27,42,60,165,September
+GP5A,2,graze,2025-09-28,42,60,166,September
+GP5C,1,graze,2025-09-29,42,167,167,September
+GP4C ,4,graze,2025-09-30,42,42,168,September
+GP4B ,4,graze,2025-10-03,50,45,171,October
+GP4A,4,graze,2025-10-06,50,48,174,October
+GP3,5,graze,2025-10-09,50,48,177,October
+GP2B,3,graze,2025-10-23,50,57,191,October
+GP2A,4,graze,2025-10-27,50,61,195,October
+GP1B,4,graze,2025-10-29,50,61,197,October
+GP1A,5,graze,2025-10-30,50,85,198,October
+GP7,6,graze,2025-11-04,60,41,203,November
+leos,3,graze,2025-11-09,60,104,208,November
+sunset_field,1,graze,2025-05-01,18,16,16,May
+sunset_hill,1,graze,2025-05-03,18,18,18,May
+lower_sunset,1,graze,2025-05-06,18,21,21,May
+pond_field,1,graze,2025-05-10,18,25,25,May
+horse,1,graze,2025-05-11,18,26,26,May
+lower_home,1,graze,2025-05-20,18,35,35,May
+triangle_lower,1,graze,2025-05-23,18,38,38,May
+railroad,1,graze,2025-05-27,18,42,42,May
+drainage,1,graze,2025-05-30,18,45,45,May
+lower_barberry,1,graze,2025-06-10,24,56,56,June
+lower_underhill,1,graze,2025-06-13,24,59,59,June
+sunset_field,3,graze,2025-06-16,24,35,62,June
+sunset_hill,3,graze,2025-06-19,24,38,65,June
+pond_field,2,graze,2025-06-25,24,45,71,June
+horse,2,graze,2025-06-28,24,39,74,June
+lower_home,3,graze,2025-07-07,30,47,83,July
+triangle_lower,2,graze,2025-07-10,30,44,86,July
+railroad,2,graze,2025-07-13,30,44,89,July
+drainage,2,graze,2025-07-16,30,36,92,July
+lower_underhill,2,graze,2025-07-30,30,44,106,July
+lower_barberry,2,graze,2025-08-03,36,51,110,August
+underhill,1,graze,2025-08-06,36,113,113,August
+barberry_woods,1,graze,2025-08-16,36,123,123,August
+bull,2,graze,2025-08-18,36,12,125,August
+sunset_field,4,graze,2025-08-21,36,66,128,August
+sunset_hill,4,graze,2025-08-24,36,66,131,August
+pond_field,3,graze,2025-08-28,36,61,135,August
+horse,3,graze,2025-09-02,42,57,140,September
+lower_home,4,graze,2025-09-08,42,63,146,September
+triangle_lower,3,graze,2025-09-10,42,59,148,September
+triangle_upper,1,graze,2025-09-13,42,151,151,September
+railroad,3,graze,2025-09-17,42,63,155,September
+briar,3,graze,2025-09-19,42,99,157,September
+drainage,3,graze,2025-10-03,50,65,171,October
+lower_barberry,4,graze,2025-10-13,50,68,181,October
+barberry_woods,2,graze,2025-10-16,50,59,184,October
+wilson,2,graze,2025-10-19,50,127,187,October
+underhill,2,graze,2025-10-25,50,70,193,October
+underhill_wet,2,graze,2025-10-30,50,85,198,October
+bull,3,graze,2025-11-06,60,80,205,November
+leos,1,hay,2025-06-03,24,49,49,June
+plains,1,hay,2025-06-05,24,51,51,June
+plains,2,hay,2025-07-25,30,49,101,July
+lamson_north,1,hay,2025-06-03,24,49,49,June
+williams_west,1,hay,2025-06-11,24,57,57,June
+williams_1a,1,hay,2025-06-09,24,55,55,June
+wilson,1,hay,2025-06-12,24,58,58,June
+briar,2,hay,2025-06-11,24,50,57,June
+POW_east,1,hay,2025-06-23,24,69,69,June
+jimmys,1,hay,2025-06-23,24,69,69,June
+white_cottage,1,hay,2025-06-23,24,69,69,June
+playground,1,hay,2025-07-14,30,90,90,July
+lamson_middle,1,hay,2025-07-13,30,89,89,July
+leos,2,hay,2025-07-28,30,55,104,July
+lower_sunset,2,hay,2025-07-28,30,83,104,July
+williams_west,2,hay,2025-06-11,24,54,57,June
+wilson_wet,1,hay,2025-08-19,36,126,126,August
+broad_meadow_1a,1,hay,2025-08-06,36,113,113,August
+underhill_veg_perimeter,1,hay,2025-08-06,36,113,113,August
+underhill_wet,1,hay,2025-08-06,36,113,113,August
+lamson_hill,1,hay,2025-08-11,36,118,118,August
+lamson_north,2,hay,2025-08-11,36,69,118,August
+broad_meadow_dry,1,hay,2025-08-19,36,126,126,August
+GP8B,2,hay,2025-08-27,36,121,134,August
+GP1A,4,mow,2025-08-06,36,35,113,August
+GP1B,2,mow,2025-08-06,36,36,113,August
+GP2A,2,mow,2025-08-06,36,39,113,August
+sunset_hill,2,mow,2025-05-12,18,9,27,May
+sunset_field,2,mow,2025-05-12,18,11,27,May
+crabby,1,mow,2025-05-21,18,36,36,May
+lower_home,2,mow,2025-05-21,18,1,36,May
+GP6A,3,mow,2025-07-29,30,23,105,July
+GP6C,3,mow,2025-07-29,30,9,105,July
+GP5D,3,mow,2025-07-29,30,7,105,July
+bull,1,mow,2025-08-06,36,113,113,August
+lower_barberry,3,mow,2025-08-06,36,3,113,August
+GP4A,3,mow,2025-08-19,36,9,126,August
+GP4B,3,mow,2025-08-19,36,10,126,August
+GP4C,3,mow,2025-08-19,36,11,126,August
