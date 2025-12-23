@@ -364,7 +364,23 @@ days<-rbind(plan_days, actual_days1)|>
 
 
 #answers question 3B - length of time spent in each field, by field. 
-
+  ggplot(
+    days |> filter(!is.na(avg_difference)),
+    aes(x = field, y = avg_difference)
+  ) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 6)
+  ) +
+  labs(
+    title = "Difference in Field Use",
+    x = "Field",
+    y = "Average Difference"
+  )
+  
+  
+  
 ggplot(
   days |> filter(!is.na(prop)),
   aes(x = field, y = prop)
