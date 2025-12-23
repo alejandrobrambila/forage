@@ -10,16 +10,18 @@ actuals_platemeter_final <-read.csv ("actuals_platemeter_final")
 #create a new column in actuals_platemeter_final to calculate how many days we
 #spent per acre
 actuals_platemeter_final <- actuals_platemeter_final %>%
+  ungroup()%>%
+  filter(move_type=="day_in")%>%
   mutate(days_per_acre = impact_period / acres_impacted)
 
 
 #plotting days per acre
-ggplot(actuals_platemeter_final, aes(x=field, y=days_per_acre))+
+ggplot(actuals_platemeter_final, aes(x=reorder(field, desc(days_per_acre)), y=days_per_acre, color=herd))+
   geom_point()+
-  geom_hline(yintercept = 3) +
+  geom_hline(yintercept = 1) +
   theme(
     axis.text.x = element_text(angle = 90, hjust = 1, size = 6)
-  ) +
+  ) + 
   labs(
     x = "Field",
     y = "Days per Acre"
@@ -28,16 +30,18 @@ ggplot(actuals_platemeter_final, aes(x=field, y=days_per_acre))+
 #now create a new column to look at acres/break. One break = 3 days
 #acres/days x 3days/break
 actuals_platemeter_final <- actuals_platemeter_final %>%
-  mutate(acres_per_break = acres_impacted/impact_period * 3)
+  mutate(acres_per_break = acres_impacted/impact_period * 3)%>%
+  mutate(acres_per_break4 = acres_impacted/impact_period * 5)
+
 
 #plotting acres_per_break
-ggplot(actuals_platemeter_final, aes(x=field, y=acres_per_break))+
-  geom_point()+
+ggplot(actuals_platemeter_final, aes(x=reorder(field, acres_per_break), y=acres_per_break))+
+ geom_point(aes(y=acres_per_break4), color="grey")+ geom_point()+
   theme(
     axis.text.x = element_text(angle = 90, hjust = 1, size = 6)
-  ) +
+  ) +  geom_hline(yintercept = 2) +
   labs(
-    x = "Field",
-    y = "Acres per Break"
+    x = "",
+    y = "Paddock size if grazed for ≤3 days"
   )
-
+f
