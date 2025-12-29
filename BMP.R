@@ -1,7 +1,7 @@
 #############################READ ME#############################
 #this script is to examine best management practices for 2025
-
-
+library(tidyverse)
+library(scales)
 
 #Did we stick to the rule of spending <3 days per acre?
 
@@ -44,4 +44,6 @@ ggplot(actuals_platemeter_final, aes(x=reorder(field, acres_per_break), y=acres_
     x = "",
     y = "Paddock size if grazed for ≤3 days"
   )
-f
+
+
+  
