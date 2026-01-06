@@ -143,14 +143,16 @@ recovery2 |>
   )
 
 
-## plots across months ----
+## 1a. plots across months ----
 
-ggplot(filter(recovery2, disturbance_num!=1), aes(reorder(field, recovery_days), recovery_days, color=as.factor(disturbance_num), shape=disturbance_type)) +geom_point(size=2)+
-  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 6))
+ggplot(filter(recovery2, disturbance_num!=1), aes(reorder(field, recovery_days), recovery_days, color=as.factor(month), shape=disturbance_type)) +geom_point(size=2)+theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 8))+ 
+  scale_color_manual(values=c( "orangered3", "orangered4", "chartreuse3", "chartreuse4", "blue2", "blue4","gray70" ))+
+  xlab("")+ylab("Previous Rest Days")+labs(color="", shape="")
 
 
 
-sggplot(filter(recovery2, disturbance_num!=1), aes(reorder(field, recovery_days), y=recovery_days-target, color=as.factor(month), shape=disturbance_type)) +geom_point(size=2)+
+ggplot(filter(recovery2, disturbance_num!=1), aes(reorder(field, recovery_days), y=recovery_days-target, color=as.factor(month), shape=disturbance_type)) +geom_point(size=2)+
   theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 6)) + ylab("Difference between Actual and Target Rest Period") +
   geom_hline(yintercept = 0) +xlab("")
   
