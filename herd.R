@@ -34,7 +34,7 @@ dmd<-all_dates%>%
   group_by(date)%>%
   dplyr::summarize(weight=sum(weight))%>%
   mutate(au=weight/1000)%>%
-  mutate(dmd=au*26)%>%
+  mutate(dmd=au*30)%>%
   ungroup()%>%
   summarise(ad=sum(au), dmd=sum(dmd))
 

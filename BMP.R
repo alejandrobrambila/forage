@@ -16,14 +16,14 @@ actuals_platemeter_final <- actuals_platemeter_final %>%
 
 
 #plotting days per acre
-ggplot(actuals_platemeter_final, aes(x=reorder(field, desc(days_per_acre)), y=days_per_acre, color=herd))+
+ggplot(filter(actuals_platemeter_final, !is.na(herd)), aes(x=reorder(field, desc(days_per_acre)), y=days_per_acre, color=herd))+
   geom_point()+
-  geom_hline(yintercept = 1) +
+  geom_hline(yintercept = 1) +theme_bw()+labs(color="")+
   theme(
-    axis.text.x = element_text(angle = 90, hjust = 1, size = 6)
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 8)
   ) + 
   labs(
-    x = "Field",
+    x = "",
     y = "Days per Acre"
   )
 
