@@ -182,7 +182,7 @@ plan_days <- plan_days|>
 
 #creating "days" df
 days_df<-rbind(plan_days, actual_days1)|> 
-  filter(!is.na(days))|> group_by(field, source)|> 
+  filter(!is.na(days))|> group_by(field, source, herd)|> 
   summarize(avg_days = mean(days))|> 
   pivot_wider(names_from = source, values_from = avg_days)|> 
   mutate(avg_difference = Actual-plan)|> 
@@ -227,15 +227,19 @@ days_df<-rbind(plan_days, actual_days1)|>
        color = prop > 0
      )
    ) +
-     geom_point(size = 2) +
+     geom_point(size = 1.5) +
      geom_hline(yintercept = 0, linetype = "dashed") +
      scale_color_manual(
        values = c("TRUE" = "darkgreen", "FALSE" = "blue"),
-       labels = c("Over planned", "Under planned")
+       labels = c("actual use less than planned use", "actual use greater than planned use")
      ) +
      theme(
-       axis.text.x = element_text(angle = 90, hjust = 1, size = 6)
-     ) +
+       axis.text.x = element_text(
+         angle = 90,      # vertical labels
+         hjust = 1,       # right-align text
+         vjust = 0.5,     # center labels vertically under bars
+         size = 6
+       )) +
      labs(
        title = "Proportional Difference in Planned vs Actual Field Use",
        x = "Field",
@@ -248,26 +252,56 @@ days_df<-rbind(plan_days, actual_days1)|>
 ####################################################################################################
 #QUESTION 2B - TOTAL DURATION
 #planned average time spent in fields overall
-
-overall_avg_plan_days <- plan %>%
+#for brood
+overall_avg_plan_days_brood <- plan %>%
+     filter(herd == "brood")%>%
   summarise(
     overall_avg_plan_days = mean(days, na.rm = TRUE)
   )
+ #for feeders  
+   overall_avg_plan_days_feeders <- plan %>%
+     filter(herd == "feeders")%>%
+     summarise(
+       overall_avg_plan_days = mean(days, na.rm = TRUE)
+     )
 
 #actual average time spent in fields overall 
-overall_avg_actual_days <- filter(actuals_platemeter_final, move_type == "day_out") %>%
+   #for brood
+overall_avg_actual_days_brood <- filter(actuals_platemeter_final, move_type == "day_out", 
+          herd == "brood", harvest_cycle_skip == "dont_skip") %>%
+  summarise(
+    overall_avg_actual_days = mean(impact_period, na.rm = TRUE)
+  )
+  #for feeders
+overall_avg_actual_days_feeders <- filter(actuals_platemeter_final, move_type == "day_out",
+                     herd == "feeders", harvest_cycle_skip == "dont_skip" ) %>%
   summarise(
     overall_avg_actual_days = mean(impact_period, na.rm = TRUE)
   )
 
-#total planned days grazed
-total_plan_days <- plan %>%
+#total planned days grazed for brood
+total_plan_days_brood <- plan %>%
+  filter(herd == "brood")%>%
   summarise(
     total_plan_days = sum(days, na.rm = TRUE)
   )
 
-#total days grazed 
-total_days <- filter(actuals_platemeter_final, move_type == "day_out") %>%
+#total planned days grazed for feeders
+total_plan_days_feeders <- plan %>%
+  filter(herd == "feeders")%>%
+  summarise(
+    total_plan_days = sum(days, na.rm = TRUE)
+  )
+
+
+#total days grazed brood
+total_days_brood <- filter(actuals_platemeter_final, move_type == "day_out", herd == "brood") %>%
+  summarise(
+    total_days = sum(impact_period, na.rm = TRUE)
+  )
+
+#total days grazed feeders
+total_days_feeders <- filter(actuals_platemeter_final, move_type == "day_out", herd == "feeders") %>%
   summarise(
     total_days = sum(impact_period, na.rm = TRUE)
   )

@@ -37,10 +37,14 @@ ggplot(cover_change_df |>
          filter(!is.na(utilization)), aes(
   x=reorder(field, utilization), y=utilization, color=herd))+
          geom_point()+
-         theme(
-           axis.text.x = element_text(angle = 90, hjust = 1, size = 6)
-         ) +
-   geom_hline(yintercept = 0.5)+
+  theme(
+    axis.text.x = element_text(
+      angle = 90,      # vertical labels
+      hjust = 1,       # right-align text
+      vjust = 0.5,     # center labels vertically under bars
+      size = 6
+    ))+
+    geom_hline(yintercept = 0.5)+
   labs( x = "Field",
        y= "% Utilization",
        title = "Percent Utilization by Graze"
@@ -63,7 +67,7 @@ ggplot(
 ) +
   geom_point() +
   theme(
-    axis.text.x = element_text(angle = 90, hjust = 1, size = 6)
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = 6)
   ) +
   labs(
     x = "Field",

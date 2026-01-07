@@ -46,8 +46,16 @@ ggplot(actuals_platemeter_final, aes(x=reorder(field, acres_per_break), y=acres_
   )
 
 
-#average days per acre (planned was 1 day/acre)
-avg_days_per_acre <- actuals_platemeter_final%>%
+#average days per acre (planned was 1 day/acre) BROOD
+avg_days_per_acre_b <- actuals_platemeter_final%>%
+  filter(herd == "brood", harvest_cycle_skip == "dont_skip")%>%
+  summarise(
+    avg_days_per_acre = mean(days_per_acre)
+  )
+
+#average days per acre (planned was 1 day/acre) FEEDERS
+avg_days_per_acre_f <- actuals_platemeter_final%>%
+  filter(herd == "feeders", harvest_cycle_skip == "dont_skip")%>%
   summarise(
     avg_days_per_acre = mean(days_per_acre)
   )
