@@ -309,8 +309,11 @@ ggplot(final_actuals_export, aes(date, cover, color=move_type)) +
 
 in_out <- filter(ungroup(final_actuals_export), move_type!='agroecology')%>%
   select(field, harvest_cycle, move_type, herd, acres_impacted, cover)%>%
+  group_by(field, harvest_cycle, move_type, herd)%>%
+  dplyr::summarize(cover=mean(cover, na.rm=T), acres_impacted=sum(acres_impacted, na.rm=T))%>%
   pivot_wider(names_from=move_type, values_from=cover)%>%
-  mutate(cowharvest=day_in-day_out, hayharvest=hay_in-hay_out)%>%
+ 
+  mutate(cowharvest=as.numeric(day_in)-as.numeric(day_out), hayharvest=as.numeric(hay_in)-as.numeric(hay_out))%>%
   group_by(field, harvest_cycle)%>%
   mutate(harvest=sum(cowharvest, hayharvest, na.rm=T))%>%
   mutate(harvest=ifelse(harvest<0, 0, harvest))%>%
@@ -318,6 +321,13 @@ in_out <- filter(ungroup(final_actuals_export), move_type!='agroecology')%>%
   mutate(sum=sum(harvest, na.rm=T))%>%
   mutate(harvest_acres=harvest*acres_impacted, sum_acres=sum(harvest_acres))
 
+wet<-read_csv("field_key.csv")%>%
+  select(2,4, 5)%>%
+  rename(field=`2025_Fields`)%>%
+  rename(type=`2025_type`)
+in_out_wet<-left_join(in_out, wet)
+
+# 2c ----
 totals_by_herd<-in_out%>%
   ungroup()%>%
   group_by(herd)%>%
@@ -325,34 +335,54 @@ totals_by_herd<-in_out%>%
 
 
 ## THESE SHOW CUMULATIVE LIVESTOCK HARVEST BASED ON IN/OUT PLATEMETER
-# there is some missing values still - those are represented as zero
-ggplot(in_out, aes(reorder(field, desc(sum)), harvest, color=as.factor(harvest_cycle))) +geom_point(aes(shape=herd))+
-  theme(
-    axis.text.x = element_text(angle = 90, hjust = 1, size = 6))+
-  ylab("Total Forage Harvested per Cycle (Platemeter in - Platemeter out) lb DM / Acre")
-
-
-ggplot(in_out, aes(reorder(field, desc(sum)), sum)) +geom_point()+
-  theme(
-    axis.text.x = element_text(angle = 90, hjust = 1, size = 6))+
-  ylab("Total Forage Harvested (Platemeter in - Platemeter out) lb DM / Acre")
 
 # by acre
-ggplot(in_out, aes(reorder(field, desc(sum_acres)), harvest_acres, color=as.factor(herd))) +geom_point()+
+ggplot(filter(in_out, harvest_acres>0), aes(reorder(field, desc(sum_acres)), harvest_acres, color=as.factor(herd))) +
+  geom_point()+theme_bw()+ geom_point(aes(y=sum_acres))+
   theme(
-    axis.text.x = element_text(angle = 90, hjust = 1, size = 6))+
-  ylab("Total Forage Harvested per Cycle (Platemeter in - Platemeter out) lb DM")
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 8))+
+  ylab("Total Forage Harvested per Cycle (Platemeter) lb DM")+xlab("")+labs(color="")
 
-
-ggplot(in_out, aes(reorder(field, desc(sum_acres)), sum_acres)) +geom_point()+
+# 3c ----
+ggplot(filter(in_out, harvest_acres>0), aes(reorder(field, desc(sum_acres)), sum_acres)) +geom_point()+theme_bw()+
   theme(
-    axis.text.x = element_text(angle = 90, hjust = 1, size = 6))+
-  ylab("Total Forage Harvested (Platemeter in - Platemeter out) lb DM")
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 8))+ geom_point(aes(y=harvest_acres, color=herd), size=.8)+
+  ylab("Total Forage Harvested (Platemeter) lb DM")+xlab("")+labs(color="")
 
 #hay only (by platemeter)
 ggplot(filter(in_out, herd=="hay"), aes(reorder(field, desc(sum_acres)), harvest_acres, color=as.factor(herd))) +geom_point()+
   theme(
     axis.text.x = element_text(angle = 90, hjust = 1, size = 6))
+
+# there is some missing values still - those are represented as zero
+ggplot(filter(in_out, harvest_acres>0), aes(reorder(field, desc(sum)), harvest, color=as.factor(herd))) +geom_point()+
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 6))+
+  ylab("Total Forage Harvested per Cycle (Platemeter) lb DM / Acre")
+
+# 3c ----
+ggplot(filter(in_out, harvest_acres>0), aes(reorder(field, desc(sum)), sum)) +
+  geom_point()+ theme_bw()+ geom_point(aes(y=harvest, color=herd), size=.8)+
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 8))+
+  ylab("Total Forage Harvested (Platemeter) lb DM / Acre")+xlab("")+labs(color="")
+
+#wet
+ggplot(filter(in_out_wet, harvest_acres>0), aes(reorder(field, desc(sum)), sum, fill=type) ) +
+  geom_rect(aes(width=.5, ymin=0, ymax=1000))+
+  geom_point()+ theme_bw()+ geom_point(aes(y=harvest, color=herd), size=.8)+
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 8))+
+  ylab("Total Forage Harvested (Platemeter) lb DM / Acre")+xlab("")+labs(color="")
+
+#bird
+ggplot(filter(in_out_wet, harvest_acres>0), aes(reorder(field, desc(sum)), sum, fill=`2025_bird`) ) +
+  geom_rect(aes(width=.5, ymin=0, ymax=1000))+
+  geom_point()+ theme_bw()+ geom_point(aes(y=harvest, color=herd), size=.8)+
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 8))+
+  ylab("Total Forage Harvested (Platemeter) lb DM / Acre")+xlab("")+labs(color="")
+
 
 # hay harvest (by bales)
 hay_lbs<-hay_production%>%
@@ -395,13 +425,56 @@ ggplot(calibrate_hay, aes(bales, diff))+
 
 
 
-# 4b. Time to recovery
+# 4a. Time to recovery ----
 
 recovery<-final_actuals_export%>%
   group_by(field, regrowth_cycle)%>%
   mutate(recdays=difftime(date, min(date), units="days"))
 
 ggplot(recovery, aes(recdays, cover, color=as.factor(regrowth_cycle))) +geom_line()+facet_wrap(~field)
+ggplot(filter(recovery, recdays<40), aes(recdays, cover, color=as.factor(regrowth_cycle))) +geom_line()+facet_wrap(~field)
+ggplot(filter(recovery, recdays<40), aes(recdays, cover, color=as.factor(regrowth_cycle))) +geom_smooth(method="lm",se=F)+geom_point()+facet_wrap(~field)
 
+
+rec_slopes<-filter(recovery, recdays<40)%>%
+  mutate(month=month(date))%>%
+  mutate(season=ifelse(month<7, 1, ifelse(month<9, 2, 3)))%>%
+  group_by(field, regrowth_cycle)%>%
+  dplyr::summarize(slope=max(cover)/max(as.integer(recdays)), month=min(month), season=min(season), resid=min(cover), herd=max(herd, na.rm=T))%>%
+  filter(!is.na(slope)&slope!=Inf&slope<500&!is.na(regrowth_cycle)&regrowth_cycle>-1)%>%
+  mutate(season=ifelse(season==1, "spring", ifelse(season==2, "summer", "x_fall")))
+
+ggplot(filter(rec_slopes), aes(reorder(field, desc(slope)), slope, color=as.factor(regrowth_cycle))) +
+  geom_point()+theme_bw()+ xlab("")+ylab("Regrowth lb/acre/day")+
+ theme( axis.text.x = element_text(angle = 90, hjust = 1, size = 8))+labs(color="Regrowth Cycle")
+
+#ggplot(filter(rec_slopes), aes(reorder(field, desc(slope)), slope, color=as.factor(season))) +
+#  geom_point()+theme_bw()+ xlab("")+ylab("Regrowth lb/acre/day")+
+#  theme( axis.text.x = element_text(angle = 90, hjust = 1, size = 8))+labs(color="Regrowth Cycle")
+
+
+# 4b recovey reasons ---- 
+
+#cycle
+ggplot(filter(rec_slopes), aes(as.factor(regrowth_cycle), slope, )) +
+  geom_boxplot()+theme_bw()+ xlab("")+ylab("Regrowth lb/acre/day")+geom_jitter(width=.25, color="grey", size=.8)+
+  theme( axis.text.x = element_text(hjust = 1, size = 8))+xlab("Regrowth Cycle")
+
+#season
+ggplot(filter(rec_slopes), aes(as.factor(season), slope, )) +
+  geom_boxplot()+theme_bw()+ xlab("")+ylab("Regrowth lb/acre/day")+geom_jitter(width=.25, color="grey", size=.8)+
+  theme( axis.text.x = element_text(hjust = 1, size = 8))+xlab("Season")
+
+#month
+ggplot(filter(rec_slopes), aes(as.factor(month), slope, )) +
+  geom_boxplot()+theme_bw()+ xlab("")+ylab("Regrowth lb/acre/day")+geom_jitter(width=.25, color="grey", size=.8)+
+  theme( axis.text.x = element_text(hjust = 1, size = 8))+xlab("Month")
+
+#residual
+ggplot(filter(rec_slopes, resid>0, regrowth_cycle>0), aes(resid, slope)) +
+  geom_point()+theme_bw()+ xlab("")+ylab("Regrowth lb/acre/day")+
+  theme( axis.text.x = element_text(hjust = 1, size = 8))+xlab("Starting Residual")
+
+  
 ##### add mow dates for GP2a? 6b? lamson hill? uwm? w1A
          
