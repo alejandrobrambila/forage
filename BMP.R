@@ -46,4 +46,10 @@ ggplot(actuals_platemeter_final, aes(x=reorder(field, acres_per_break), y=acres_
   )
 
 
+#average days per acre (planned was 1 day/acre)
+avg_days_per_acre <- actuals_platemeter_final%>%
+  summarise(
+    avg_days_per_acre = mean(days_per_acre)
+  )
+
   
