@@ -391,9 +391,9 @@ mutate(`small rounds`=ifelse(is.na(`small rounds`), 0, `small rounds`))%>%
 mutate(`Square bales`=ifelse(is.na(`Square bales`), 0, `Square bales`))%>%
   mutate(harvest=.85*(`Round bales`*750+`small rounds`*375+`Square bales`*55))
 
-ggplot(hay_lbs, aes(reorder(`field`,desc(harvest)), harvest)) +geom_point()+
+ggplot(hay_lbs, aes(reorder(`field`,desc(harvest)), harvest/750/.85, color=`cut type`)) +theme_bw()+geom_point()+
   theme(
-    axis.text.x = element_text(angle = 90, hjust = 1, size = 6))
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 10))+xlab("")+ylab("750lb Round Bale Equivalents")
 
 join<-select(in_out, field,herd, harvest_acres)%>%
   filter(herd=="hay")%>%
