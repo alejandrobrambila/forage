@@ -343,6 +343,11 @@ ggplot(filter(in_out, harvest_acres>0), aes(reorder(field, desc(sum_acres)), har
     axis.text.x = element_text(angle = 90, hjust = 1, size = 8))+
   ylab("Total Forage Harvested per Cycle (Platemeter) lb DM")+xlab("")+labs(color="")
 
+#summarize totals for saskia#
+test<-in_out%>%
+  select(field, sum)%>%
+  unique()
+
 # 3c ----
 ggplot(filter(in_out, harvest_acres>0), aes(reorder(field, desc(sum_acres)), sum_acres)) +geom_point()+theme_bw()+
   theme(

@@ -1,0 +1,161 @@
+ha,Date,Field,Sample_ID,platemeter_reading,900_cm2_drymass,kg_ha,dominant_forage_stage
+1,4/16/26,Horse,1,6.6,2.634,292.66374,initial veg growth
+,4/16/26,Horse,2,12.5,5.418,601.99398,initial veg growth
+,4/16/26,Horse,3,11,6.922,769.10342,initial veg growth
+,4/16/26,Horse,4,9.1,4.427,491.88397,initial veg growth
+,4/16/26,Horse,5,12.8,14.726,1636.20586,initial veg growth
+,4/16/26,Horse,6,9.4,7.244,804.88084,initial veg growth
+,4/16/26,Horse,7,13.9,9.302,1033.54522,initial veg growth
+,4/16/26,Horse,8,18.1,16.248,1805.31528,initial veg growth
+,4/16/26,Horse,9,10.4,8.421,935.65731,initial veg growth
+,4/16/26,Horse,10,7.3,5.895,654.99345,initial veg growth
+,4/16/26,Upper Triangle,1,13.5,11.555,1283.87605,initial veg growth
+,4/16/26,Upper Triangle,2,16.6,14.261,1584.53971,initial veg growth
+,4/16/26,Upper Triangle,3,13.1,9.955,1106.10005,initial veg growth
+,4/16/26,Upper Triangle,4,9.7,6.584,731.54824,initial veg growth
+,4/16/26,Upper Triangle,5,11,9.212,1023.54532,initial veg growth
+,4/16/26,Upper Triangle,6,8.9,11.582,1286.87602,initial veg growth
+,4/16/26,Upper Triangle,7,17.7,21.044,2338.19884,initial veg growth
+,4/16/26,Upper Triangle,8,7.5,4.816,535.10576,initial veg growth
+,4/16/26,Upper Triangle,9,21.2,29.428,3269.74508,initial veg growth
+,4/16/26,Upper Triangle,10,13.7,11.386,1265.09846,initial veg growth
+2,4/22/26,Horse,1,11.4,13.872,1541.31792,initial veg growth
+,4/22/26,Horse,2,16.1,12.995,1443.87445,initial veg growth
+,4/22/26,Horse,3,8.9,9.087,1009.65657,initial veg growth
+,4/22/26,Horse,4,7.9,5.545,616.10495,initial veg growth
+,4/22/26,Horse,5,21.7,29.601,3288.96711,initial veg growth
+,4/22/26,Horse,6,9.3,9.121,1013.43431,initial veg growth
+,4/22/26,Horse,7,17.8,25.193,2799.19423,initial veg growth
+,4/22/26,Horse,8,16.2,21.305,2367.19855,initial veg growth
+,4/22/26,Horse,9,12.6,16.217,1801.87087,initial veg growth
+,4/22/26,Horse,10,11.3,23.847,2649.64017,initial veg growth
+,4/22/26,Upper Triangle,1,13.7,16.225,1802.75975,initial veg growth
+,4/22/26,Upper Triangle,2,10.8,15.226,1691.76086,initial veg growth
+,4/22/26,Upper Triangle,3,12.3,12.518,1390.87498,initial veg growth
+,4/22/26,Upper Triangle,4,14.7,14.39,1598.8729,initial veg growth
+,4/22/26,Upper Triangle,5,16.6,26.177,2908.52647,initial veg growth
+,4/22/26,Upper Triangle,6,13.8,15.387,1709.64957,initial veg growth
+,4/22/26,Upper Triangle,7,20,21.263,2362.53193,initial veg growth
+,4/22/26,Upper Triangle,8,12.6,11.699,1299.87589,initial veg growth
+,4/22/26,Upper Triangle,9,12.2,13.007,1445.20777,initial veg growth
+,4/22/26,Upper Triangle,10,13.4,18.553,2061.42383,initial veg growth
+3,1-May,Horse,1,11.5,7.114,790.43654,initial veg growth
+,1-May,Horse,2,16.8,22.165,2462.75315,initial veg growth
+,1-May,Horse,3,24,31.203,3466.96533,initial veg growth
+,1-May,Horse,4,22,20.127,2236.31097,initial veg growth
+,1-May,Horse,5,19.3,21.277,2364.08747,initial veg growth
+,1-May,Horse,6,17.8,13.322,1480.20742,initial veg growth
+,1-May,Horse,7,21.3,24.839,2759.86129,initial veg growth
+,1-May,Horse,8,12.6,14.56,1617.7616,initial veg growth
+,1-May,Horse,9,17.3,11.806,1311.76466,initial veg growth
+,1-May,Horse,10,19.6,13.495,1499.42945,initial veg growth
+,1-May,Upper Triangle,1,11.4,15.662,1740.20482,initial veg growth
+,1-May,Upper Triangle,2,20.5,15.288,1698.64968,initial veg growth
+,1-May,Upper Triangle,3,15.2,15.299,1699.87189,initial veg growth
+,1-May,Upper Triangle,4,14.3,14.406,1600.65066,initial veg growth
+,1-May,Upper Triangle,5,11,4.855,539.43905,initial veg growth
+,1-May,Upper Triangle,6,17,11.422,1269.09842,initial veg growth
+,1-May,Upper Triangle,7,16.2,15.133,1681.42763,initial veg growth
+,1-May,Upper Triangle,8,21.3,17.699,1966.53589,initial veg growth
+,1-May,Upper Triangle,9,16,22.126,2458.41986,initial veg growth
+,1-May,Upper Triangle,10,12.8,15.421,1713.42731,initial veg growth
+4,6-May,Horse,1,26.5,21.178,2353.08758,initial veg growth
+,6-May,Horse,2,17,23.916,2657.30676,initial veg growth
+,6-May,Horse,3,22.6,20.146,2238.42206,initial veg growth
+,6-May,Horse,4,16.6,19.705,2189.42255,initial veg growth
+,6-May,Horse,5,18.9,13.526,1502.87386,initial veg growth
+,6-May,Horse,6,14.9,12.906,1433.98566,initial veg growth
+,6-May,Horse,7,16.7,16.029,1780.98219,initial veg growth
+,6-May,Horse,8,24.7,22.849,2538.75239,initial veg growth
+,6-May,Horse,9,24.1,20.048,2227.53328,initial veg growth
+,6-May,Horse,10,18,22.883,2542.53013,initial veg growth
+,6-May,Upper Triangle,1,20.4,23.456,2606.19616,initial veg growth
+,6-May,Upper Triangle,2,18.8,16.374,1819.31514,initial veg growth
+,6-May,Upper Triangle,3,19.5,18.501,2055.64611,initial veg growth
+,6-May,Upper Triangle,4,8.7,6.303,700.32633,initial veg growth
+,6-May,Upper Triangle,5,26.9,16.11,1789.9821,initial veg growth
+,6-May,Upper Triangle,6,27.3,,,initial veg growth
+,6-May,Upper Triangle,7,16.3,14.568,1618.65048,initial veg growth
+,6-May,Upper Triangle,8,16.1,12.95,1438.8745,initial veg growth
+,6-May,Upper Triangle,9,17.4,20.069,2229.86659,initial veg growth
+,6-May,Upper Triangle,10,15.5,14.877,1652.98347,initial veg growth
+5,15-May,Horse,1,30.4,16.87,1874.4257,
+,15-May,Horse,2,38.7,22.184,2464.86424,
+,15-May,Horse,3,23.3,11.65,1294.4315,
+,15-May,Horse,4,36.3,21.3,2366.643,
+,15-May,Horse,5,29.4,13.372,1485.76292,
+,15-May,Horse,6,49.9,29.695,3299.41145,
+,15-May,Horse,7,29.5,20.55,2283.3105,
+,15-May,Horse,8,30.1,25.262,2806.86082,
+,15-May,Horse,9,29.2,17.6702,1963.335922,
+,15-May,Horse,10,37.3,28.145,3127.19095,
+,15-May,Upper Triangle,1,31.1,19.613,2179.20043,
+,15-May,Upper Triangle,2,33.3,15.61,1734.4271,
+,15-May,Upper Triangle,3,21.8,17.61,1956.6471,
+,15-May,Upper Triangle,4,17.3,11.71,1301.0981,
+,15-May,Upper Triangle,8,21.9,11.33,1258.8763,
+,15-May,Upper Triangle,6,22.8,13.771,1530.09581,
+,15-May,Upper Triangle,7,28.3,13.064,1451.54104,
+,15-May,Upper Triangle,5,23.1,18.116,2012.86876,
+,15-May,Upper Triangle,9,12.8,19.517,2168.53387,
+,15-May,Upper Triangle,10,22.4,19.184,2131.53424,
+,21-May,Horse,1,,,,
+,21-May,Horse,2,34.1,24.989,2776.52779,
+,21-May,Horse,3,33.6,13.065,1451.65215,
+,21-May,Horse,4,49.8,,,
+,21-May,Horse,5,30.6,15.028,1669.76108,
+,21-May,Horse,6,30.7,33.507,3722.96277,
+,21-May,Horse,7,38.2,40.128,4458.62208,
+,21-May,Horse,8,20.7,15.266,1696.20526,
+,21-May,Horse,9,24.9,19.991,2221.20001,
+,21-May,Horse,10,28.1,53.446,5938.38506,
+,22-May,Upper Triangle,1,39.2,20.051,2227.86661,
+,22-May,Upper Triangle,2,23.1,23.367,2596.30737,
+,22-May,Upper Triangle,3,35.8,20.938,2326.42118,
+,22-May,Upper Triangle,4,39.8,41.175,4574.95425,
+,22-May,Upper Triangle,5,25.2,20.034,2225.97774,
+,22-May,Upper Triangle,6,42.6,34.249,3805.40639,
+,22-May,Upper Triangle,7,26.2,13.743,1526.98473,
+,22-May,Upper Triangle,8,34,31.129,3458.74319,
+,22-May,Upper Triangle,9,28.1,21.396,2377.30956,
+,22-May,Upper Triangle,10,26.6,23.563,2618.08493,
+,28-May,Horse,1,20.7,,,
+,28-May,Horse,2,35.7,26.767,2974.08137,
+,28-May,Horse,3,44.2,43.545,4838.28495,
+,28-May,Horse,4,40.6,34.002,3777.96222,
+,28-May,Horse,5,38.4,38.274,4252.62414,
+,28-May,Horse,6,31.3,22.546,2505.08606,
+,28-May,Horse,7,21.4,17.186,1909.53646,
+,28-May,Horse,8,32.7,21.987,2442.97557,
+,28-May,Horse,9,37.4,43.178,4797.50758,
+,28-May,Horse,10,44.9,23.155,2572.75205,
+,28-May,Upper Triangle,1,,19.571,2174.53381,
+,28-May,Upper Triangle,2,,11.912,1323.54232,
+,28-May,Upper Triangle,3,,19.534,2170.42274,
+,28-May,Upper Triangle,4,,17.166,1907.31426,
+,28-May,Upper Triangle,5,,26.749,2972.08139,
+,28-May,Upper Triangle,6,,21.664,2407.08704,
+,28-May,Upper Triangle,7,,28.95,3216.6345,
+,28-May,Upper Triangle,8,,21.561,2395.64271,
+,28-May,Upper Triangle,9,,29.296,3255.07856,
+,28-May,Upper Triangle,10,,23.581,2620.08491,
+,3-Jun,Horse,1,44.5,26.852,2983.52572,
+,3-Jun,Horse,2,26.7,22.396,2488.41956,
+,3-Jun,Horse,3,23.5,23.33,2592.1963,
+,3-Jun,Horse,4,39.5,24.641,2737.86151,
+,3-Jun,Horse,5,46.7,32.015,3557.18665,
+,3-Jun,Horse,6,40.6,28.551,3172.30161,
+,3-Jun,Horse,7,34.8,35.708,3967.51588,
+,3-Jun,Horse,8,27.6,23.302,2589.08522,
+,3-Jun,Horse,9,28.3,34.249,3805.40639,
+,3-Jun,Horse,10,40.8,34.596,3843.96156,
+,3-Jun,Upper Triangle,1,39,27.898,3099.74678,
+,3-Jun,Upper Triangle,2,33.6,23.828,2647.52908,
+,3-Jun,Upper Triangle,3,26.5,19.373,2152.53403,
+,3-Jun,Upper Triangle,4,31.5,21.036,2337.30996,
+,3-Jun,Upper Triangle,5,45.3,41.755,4639.39805,
+,3-Jun,Upper Triangle,6,20.8,18.335,2037.20185,
+,3-Jun,Upper Triangle,7,25,22.089,2454.30879,
+,3-Jun,Upper Triangle,8,22.4,16.864,1873.75904,
+,3-Jun,Upper Triangle,9,43.5,33.872,3763.51792,
+,3-Jun,Upper Triangle,10,33.6,29.373,3263.63403,
